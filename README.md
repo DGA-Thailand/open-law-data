@@ -19,6 +19,6 @@
 โครงการของเราจะแบ่งคลังข้อมูล (Repository) ออกตามแหล่งที่มาของข้อมูล เพื่อให้ง่ายต่อการจัดการและนำไปใช้ โดยมี Repository หลักดังนี้:
 
 * **[open-law-data](https://github.com/DGA-Thailand/open-law-data)**: (Repository ปัจจุบัน) เป็นหน้าบ้านหลักของโครงการ ใช้สำหรับประชาสัมพันธ์, เก็บเอกสาร, และคู่มือการใช้งานโดยรวม
-* **[open-law-data-soc-ratchakitcha](https://github.com/DGA-Thailand/open-law-data-soc-ratchakitcha)**: คลังข้อมูลสำหรับ **"ราชกิจจานุเบกษา"** ที่ผ่านการประมวลผลแล้ว
+* **[open-law-data-soc-ratchakitcha](https://huggingface.co/datasets/openlawdatathailand/soc-ratchakitcha)**: คลังข้อมูลสำหรับ **"ราชกิจจานุเบกษา"** ที่ผ่านการประมวลผลแล้ว
 
 โดยในแต่ละคลังข้อมูล จะมีโครงสร้างโฟลเดอร์ที่จัดเก็บตามปีและเดือน เพื่อง่ายต่อการเข้าถึง
