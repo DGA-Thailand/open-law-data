@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Law Data Thailand - ภารกิจเปิดข้อมูลกฎหมายไทย</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Noto Sans Thai -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+    
+    <style>
+        /* APL: ใช้ฟอนต์ Noto Sans Thai เป็นหลัก */
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        /* APL: Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #a0aec0; /* gray-400 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #718096; /* gray-500 */
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #f1f5f9; /* slate-100 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- APL: Header -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-30">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="#hero-section" class="flex-shrink-0 flex items-center">
+                    <i data-lucide="scale" class="h-8 w-8 text-blue-600"></i>
+                    <span class="ml-3 text-2xl font-bold text-slate-800">Open Law Data</span><span class="ml-2 text-xl font-light text-slate-500 hidden md:inline">| Thailand</span>
+                </a>
+                <div class="hidden md:flex md:items-center md:space-x-6">
+                    <a href="#project-mission" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ภารกิจของเรา</a>
+                    <a href="#dataset-showcase" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ฐานข้อมูล</a>
+                    <a href="#footer" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ติดต่อเรา</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-600 hover:bg-slate-100">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- APL: Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- 1. Hero Section - ปรับใหม่เน้นภาพรวมโครงการ -->
+        <section id="hero-section" class="text-center py-16 md:py-24 bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+            <div class="px-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-700 tracking-tight">
+                    Open Law Data Thailand
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto">
+                    ภารกิจเพื่อทำให้ข้อมูลกฎหมายและเอกสารราชการไทย
+                    เข้าถึงได้ง่าย โปร่งใส และนำไปต่อยอดได้
+                </p>
+                <a href="#dataset-showcase"
+                   class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition duration-200 shadow-md mt-10">
+                    <i data-lucide="database" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
+                    ดูฐานข้อมูลที่เปิดเผยแล้ว
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. Project Mission (ที่มาที่ไป) -->
+        <section id="project-mission" class="mt-16 py-16 px-6 md:px-12 bg-white rounded-2xl shadow-lg border border-slate-200">
+            <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-8">
+                ที่มาและภารกิจของเรา
+            </h2>
+            <div class="max-w-3xl mx-auto text-lg text-slate-700 leading-relaxed space-y-4">
+                <p>
+                    โครงการ Open Law Data (ต่อยอดจาก <a target="_blank" href="https://docs.google.com/document/d/1rLwTcS3-slR4bBe8JXm8pDCu3VTmrIzoEgrdNMbv-9E/edit?tab=t.0"><strong class="font-semibold text-blue-600">T-LawGPT</strong></a>)
+                    เริ่มต้นจากความท้าทายที่ว่า ข้อมูลกฎหมายและเอกสารราชการไทยจำนวนมหาศาล
+                    กระจัดกระจาย, ค้นหาได้ยาก, และมักอยู่ในรูปแบบที่นำไปใช้งานต่อได้ลำบาก (เช่น ไฟล์สแกน PDF)
+                </p>
+                <p>
+                    ภารกิจของเราคือการรวบรวม, จัดการ, และเปิดเผยข้อมูลเหล่านี้ในรูปแบบ <strong class="font-semibold">Open Dataset</strong>
+                    ที่ "สะอาด" (Cleaned) และ "ถอดข้อความแล้ว" (OCR-ed)
+                    เพื่อสร้างรากฐานของความโปร่งใส และเปิดโอกาสให้นักพัฒนา, นักวิจัย, และประชาชนทั่วไป
+                    สามารถนำข้อมูลไปสร้างนวัตกรรมหรือเครื่องมือที่เป็นประโยชน์ต่อสังคมได้
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Dataset Showcase (โหมดย่อย) - ส่วนใหม่แทนที่ Search -->
+        <section id="dataset-showcase" class="mt-16">
+            <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-10">
+                ฐานข้อมูลที่เปิดเผยแล้ว (Available Datasets)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- การ์ดที่ 1: ราชกิจจานุเบกษา (ลิงก์ไป HF) -->
+                <div class="flex flex-col bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
+                    <div class="flex-shrink-0">
+                        <i data-lucide="archive" class="h-12 w-12 text-blue-600"></i>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-4">
+                            ฐานข้อมูลราชกิจจานุเบกษา
+                        </h3>
+                        <p class="text-slate-600 mt-2">
+                            (soc-ratchakitcha)
+                        </p>
+                    </div>
+                    <p class="text-slate-700 mt-4 flex-1">
+                        คลังข้อมูลราชกิจจานุเบกษาไทยย้อนหลัง 140+ ปี
+                        ที่ผ่านกระบวนการ OCR (Optical Character Recognition)
+                        เพื่อแปลงไฟล์ PDF เป็นข้อความ (Text) ที่ค้นหาและนำไปใช้งานต่อได้
+                    </p>
+                    <!-- สถิติข้อมูล -->
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
+                            <div class="text-3xl font-bold text-blue-600">1.2M+</div>
+                            <div class="text-slate-600 text-sm mt-1">เอกสาร (จำลอง)</div>
+                        </div>
+                        <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
+                            <div class="text-3xl font-bold text-blue-600">1884</div>
+                            <div class="text-slate-600 text-sm mt-1">ข้อมูลถึงปี (จำลอง)</div>
+                        </div>
+                    </div>
+                    <a href="https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha" target="_blank"
+                       class="mt-8 inline-block w-full text-center bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-200 shadow-md">
+                        <i data-lucide="external-link" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
+                        Hugging Face Dataset
+                    </a>
+                </div>
+
+                <!-- การ์ดที่ 2: โครงการอนาคต (รองรับตาม Requirement) -->
+                <div class="flex flex-col bg-white p-8 rounded-2xl shadow-lg border border-slate-200 opacity-70">
+                    <div class="flex-shrink-0">
+                        <i data-lucide="loader-2" class="h-12 w-12 text-slate-400 animate-spin"></i>
+                        <h3 class="text-2xl font-bold text-slate-800 mt-4">
+                            ฐานข้อมูลกฎหมายอื่นๆ
+                        </h3>
+                        <p class="text-slate-500 mt-2">
+                            (เร็วๆ นี้)
+                        </p>
+                    </div>
+                    <p class="text-slate-600 mt-4 flex-1">
+                        ทีมงานกำลังอยู่ในระหว่างการติดต่อ รวบรวม และจัดเตรียมข้อมูล
+                        เช่น คำพิพากษาศาล, กฎกระทรวง, และข้อบัญญัติท้องถิ่น
+                        เพื่อเปิดเป็น Open Dataset ในลำดับถัดไป
+                    </p>
+                    <button
+                       class="mt-8 inline-block w-full text-center bg-slate-200 text-slate-500 font-bold py-3 px-6 rounded-lg text-lg cursor-not-allowed">
+                        <i data-lucide="clock" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
+                        Coming Soon
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- APL: Footer -->
+    <footer id="footer" class="mt-16 border-t border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+            <p>
+                Credits: 
+              <strong class="text-slate-600">สำนักเลขาธิการคณะรัฐมนตรี</strong>, 
+              และผู้ร่วมพัฒนาทุกคน
+            </p>
+            <p class="mt-2">
+                License: <strong class="text-slate-600">Open Data (CC-BY)</strong>
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- APL: JavaScript Logic (เหลือแค่สำหรับ Icons) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // APL: Render icons
+            lucide.createIcons();
+
+            // APL: Mobile menu (optional)
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            if(menuBtn) {
+                menuBtn.addEventListener('click', () => {
+                    // APL: Logic for mobile menu can be added here
+                    console.log("Mobile menu clicked");
+                });
+            }
+        });
+    </script>
+</body>
+</html>
