@@ -39,12 +39,87 @@
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
         }
 
         .gradient-text {
-            background: linear-gradient(to right, #2563eb, #9333ea);
+            background: linear-gradient(135deg, #2563eb 0%, #9333ea 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        @keyframes float-delayed {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(-30px, 50px) scale(0.9);
+            }
+
+            66% {
+                transform: translate(20px, -20px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-float {
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .animate-float-delayed {
+            animation: float-delayed 15s ease-in-out infinite;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
         }
     </style>
 </head>
@@ -91,52 +166,92 @@
     <!-- Hero Section -->
     <section id="about" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6 border border-blue-100">
-                🚀 อัปเดตล่าสุด: พฤศจิกายน 2568
-            </span>
-            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
-                ปลดล็อกกฎหมายไทย<br>สู่ยุค <span class="gradient-text">Artificial Intelligence</span>
+            <div class="animate-fade-in-up opacity-0">
+                <span
+                    class="inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50/80 backdrop-blur-sm text-blue-600 text-sm font-semibold mb-8 border border-blue-100 shadow-sm ring-1 ring-blue-100/50">
+                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
+                    อัปเดตล่าสุด: พฤศจิกายน 2568
+                </span>
+            </div>
+
+            <h1
+                class="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight mb-8 leading-[1.1] animate-fade-in-up delay-100 opacity-0">
+                ศูนย์กลางกฎหมายไทย<br>สู่ยุค <span class="gradient-text">Artificial Intelligence</span>
             </h1>
-            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 mb-10">
-                ศูนย์กลางฐานข้อมูลกฎหมายไทย ตั้งแต่ปี 2428 - ปัจจุบัน<br>
+
+            <p
+                class="mt-6 max-w-2xl mx-auto text-xl md:text-2xl text-gray-500 mb-12 leading-relaxed animate-fade-in-up delay-200 opacity-0">
+                ศูนย์กลางฐานข้อมูลกฎหมายไทย ตั้งแต่ปี 2428 - ปัจจุบัน<br class="hidden md:block">
                 ในรูปแบบ Machine-Readable พร้อมสำหรับนักพัฒนาและทุกคน
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-300 opacity-0">
                 <a href="https://huggingface.co/open-law-data-thailand" target="_blank"
-                    class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-thai-blue hover:bg-blue-800 md:text-lg transition shadow-lg shadow-blue-500/20 gap-2">
+                    class="group inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-xl text-white bg-thai-blue hover:bg-blue-800 md:text-lg transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:-translate-y-1 gap-2">
                     <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face"
-                        class="w-5 h-5">
+                        class="w-6 h-6 brightness-0 invert group-hover:scale-110 transition-transform">
                     ดาวน์โหลดข้อมูล
+                </a>
+                <a href="https://github.com/DGA-Thailand/open-law-data" target="_blank"
+                    class="group inline-flex items-center justify-center px-8 py-4 border border-gray-200 text-base font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 hover:border-gray-300 md:text-lg transition-all shadow-sm hover:shadow-md hover:-translate-y-1 gap-2">
+                    <i class="ph-bold ph-code text-xl group-hover:scale-110 transition-transform"></i>
+                    ดู Source Code
                 </a>
             </div>
         </div>
 
         <!-- Background Elements -->
-        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full overflow-hidden -z-10">
-            <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full overflow-hidden -z-10 pointer-events-none">
+            <div
+                class="absolute top-[-10%] left-[10%] w-[500px] h-[500px] bg-blue-200/40 rounded-full blur-[100px] animate-float mix-blend-multiply">
+            </div>
+            <div
+                class="absolute bottom-[-10%] right-[10%] w-[600px] h-[600px] bg-purple-200/40 rounded-full blur-[100px] animate-float-delayed mix-blend-multiply">
+            </div>
+            <div
+                class="absolute top-[40%] left-[40%] w-[400px] h-[400px] bg-pink-100/40 rounded-full blur-[100px] animate-float delay-100 mix-blend-multiply">
+            </div>
         </div>
     </section>
 
     <!-- Stats Section -->
-    <section id="stats" class="py-12 bg-white border-y border-gray-100">
+    <section id="stats" class="py-12 bg-white border-y border-gray-100 relative z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-thai-blue mb-2">2428</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div
+                    class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-12 h-12 mx-auto bg-blue-100 rounded-full flex items-center justify-center text-thai-blue mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-hourglass-high text-2xl"></i>
+                    </div>
+                    <div class="text-3xl md:text-4xl font-bold text-thai-blue mb-2">2428</div>
                     <div class="text-sm text-gray-500 font-medium">ข้อมูลย้อนหลังเก่าสุด</div>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-thai-blue mb-2">1.34M+</div>
+                <div
+                    class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-12 h-12 mx-auto bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-files text-2xl"></i>
+                    </div>
+                    <div class="text-3xl md:text-4xl font-bold text-thai-blue mb-2">1.34M+</div>
                     <div class="text-sm text-gray-500 font-medium">จำนวนไฟล์เอกสาร</div>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-thai-blue mb-2">170GB+</div>
+                <div
+                    class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-12 h-12 mx-auto bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-hard-drives text-2xl"></i>
+                    </div>
+                    <div class="text-3xl md:text-4xl font-bold text-thai-blue mb-2">170GB+</div>
                     <div class="text-sm text-gray-500 font-medium">ขนาดข้อมูลรวม</div>
                 </div>
-                <div class="p-4">
-                    <div class="text-4xl font-bold text-thai-blue mb-2">24 Hrs</div>
+                <div
+                    class="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-12 h-12 mx-auto bg-orange-100 rounded-full flex items-center justify-center text-orange-600 mb-4 group-hover:scale-110 transition-transform">
+                        <i class="ph-fill ph-clock-countdown text-2xl"></i>
+                    </div>
+                    <div class="text-3xl md:text-4xl font-bold text-thai-blue mb-2">24 Hrs</div>
                     <div class="text-sm text-gray-500 font-medium">รอบการอัปเดตข้อมูล</div>
                 </div>
             </div>
@@ -144,49 +259,71 @@
     </section>
 
     <!-- Architecture / How it works -->
-    <section id="architecture" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="architecture" class="py-20 bg-gray-50 relative overflow-hidden">
+        <!-- Decorative background blobs -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+            <div class="absolute top-[20%] right-[-5%] w-96 h-96 bg-blue-100/50 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-[10%] left-[-5%] w-96 h-96 bg-purple-100/50 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">สถาปัตยกรรมระบบ (Architecture)</h2>
-                <p class="text-gray-500 max-w-2xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">สถาปัตยกรรมระบบ (Architecture)</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">
                     เราออกแบบระบบให้ทำงานอัตโนมัติ ยั่งยืน และไม่รบกวนเซิร์ฟเวอร์ต้นทาง
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8 relative">
                 <!-- Step 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
-                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-thai-blue mb-6">
-                        <i class="ph-fill ph-database text-2xl"></i>
+                <div
+                    class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-thai-blue mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                        <i class="ph-fill ph-database text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">1. Data Aggregation</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
+                    <p class="text-gray-500 leading-relaxed">
                         ระบบ Bot อัจฉริยะดึงข้อมูลจากราชกิจจานุเบกษาและแหล่งข้อมูลภาครัฐ บริหารจัดการ Traffic
                         ไม่ให้รบกวนต้นทาง
                     </p>
                 </div>
 
+                <!-- Arrow 1-2 -->
+                <div
+                    class="hidden md:flex absolute top-1/2 left-[30%] -translate-y-1/2 text-gray-300 z-0 animate-pulse">
+                    <i class="ph-fill ph-arrow-right text-4xl"></i>
+                </div>
 
                 <!-- Step 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
+                <div
+                    class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                     <div
-                        class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mb-6">
-                        <i class="ph-fill ph-scan text-2xl"></i>
+                        class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                        <i class="ph-fill ph-scan text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">2. Storage & OCR<br />(Coming Soon)</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
+                    <p class="text-gray-500 leading-relaxed">
                         แยกเก็บข้อมูลร้อน/เย็น (Hot/Cold Storage) และประมวลผลภาพเป็นข้อความ (OCR)
                         เพื่อให้ค้นหาได้ทุกตัวอักษร
                     </p>
                 </div>
 
+                <!-- Arrow 2-3 -->
+                <div
+                    class="hidden md:flex absolute top-1/2 left-[63%] -translate-y-1/2 text-gray-300 z-0 animate-pulse delay-100">
+                    <i class="ph-fill ph-arrow-right text-4xl"></i>
+                </div>
+
                 <!-- Step 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
-                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mb-6">
-                        <i class="ph-fill ph-globe text-2xl"></i>
+                <div
+                    class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                        <i class="ph-fill ph-globe text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">3. Public Access</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
+                    <p class="text-gray-500 leading-relaxed">
                         เปิดให้ดาวน์โหลดฟรีผ่าน Hugging Face เพื่อให้นักพัฒนานำไปสร้าง Legal Tech หรือ AI
                         ได้ทันที
                     </p>
@@ -210,43 +347,47 @@
 
                 <!-- Senate -->
                 <div
-                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    class="flex flex-col items-center p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
                     <div
-                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        class="h-16 w-16 bg-gray-100 rounded-2xl mb-6 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform">
                         <i class="ph-fill ph-bank text-3xl"></i>
                     </div>
-                    <h4 class="font-bold text-blue-900">วุฒิสภา</h4>
-                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">ผู้ริเริ่มและสนับสนุนเชิงนโยบาย</p>
+                    <h4 class="font-bold text-gray-900 text-lg">วุฒิสภา</h4>
+                    <p class="text-sm text-gray-500 mt-2 text-center leading-relaxed">ผู้ริเริ่มและสนับสนุนเชิงนโยบาย
+                    </p>
                 </div>
 
                 <!-- Cabinet Secretariat (SALA) -->
                 <a href="https://www.soc.go.th/" target="_blank" rel="noopener noreferrer"
-                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    class="flex flex-col items-center p-8 bg-blue-50/50 rounded-2xl border border-blue-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full ring-1 ring-blue-100">
                     <div
-                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        class="h-16 w-16 bg-white rounded-2xl mb-6 flex items-center justify-center text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
                         <i class="ph-fill ph-files text-3xl"></i>
                     </div>
-                    <h4 class="font-bold text-blue-900">สำนักเลขาธิการคณะรัฐมนตรี (สลค.)</h4>
-                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">ผู้สนับสนุนข้อมูลราชกิจจานุเบกษา</p>
+                    <h4 class="font-bold text-blue-900 text-lg">สำนักเลขาธิการคณะรัฐมนตรี (สลค.)</h4>
+                    <p class="text-sm text-blue-700 mt-2 text-center font-medium leading-relaxed">
+                        ผู้สนับสนุนข้อมูลราชกิจจานุเบกษา</p>
                 </a>
 
                 <!-- DGA -->
                 <a href="https://www.dga.or.th/" target="_blank" rel="noopener noreferrer"
-                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    class="flex flex-col items-center p-8 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group h-full">
                     <div
-                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        class="h-16 w-16 bg-gray-100 rounded-2xl mb-6 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform">
                         <i class="ph-fill ph-cloud text-3xl"></i>
                     </div>
-                    <h4 class="font-bold text-blue-900">DGA (สพร.)</h4>
-                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">สนับสนุนโครงสร้างพื้นฐานดิจิทัล</p>
+                    <h4 class="font-bold text-gray-900 text-lg">DGA (สพร.)</h4>
+                    <p class="text-sm text-gray-500 mt-2 text-center leading-relaxed">สนับสนุนโครงสร้างพื้นฐานดิจิทัล
+                    </p>
                 </a>
 
                 <!-- Private Sector Row -->
-                <div class="lg:col-span-3 flex flex-wrap justify-center gap-6 mt-8" style="display: none;">
+                <div class="lg:col-span-3 flex flex-wrap justify-center gap-6 mt-8 hidden">
                     <!-- UpPass -->
                     <div
-                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
-                        <div class="bg-purple-100 p-3 rounded-lg text-purple-600">
+                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
+                        <div
+                            class="bg-purple-50 p-3 rounded-xl text-purple-600 group-hover:scale-110 transition-transform">
                             <i class="ph-fill ph-file-text text-2xl"></i>
                         </div>
                         <div>
@@ -257,8 +398,8 @@
 
                     <!-- IApp -->
                     <div
-                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
-                        <div class="bg-blue-100 p-3 rounded-lg text-blue-900">
+                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
+                        <div class="bg-blue-50 p-3 rounded-xl text-blue-900 group-hover:scale-110 transition-transform">
                             <i class="ph-fill ph-brain text-2xl"></i>
                         </div>
                         <div>
@@ -269,8 +410,9 @@
 
                     <!-- StockRadars -->
                     <div
-                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
-                        <div class="bg-green-100 p-3 rounded-lg text-green-600">
+                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
+                        <div
+                            class="bg-green-50 p-3 rounded-xl text-green-600 group-hover:scale-110 transition-transform">
                             <i class="ph-fill ph-chart-line-up text-2xl"></i>
                         </div>
                         <div>
