@@ -1,208 +1,326 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Law Data Thailand - ภารกิจเปิดข้อมูลกฎหมายไทย</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts - Noto Sans Thai -->
+    <title>Open Law Data Thailand - ฐานข้อมูลกฎหมายกลางเพื่อประชาชน</title>
+    <meta name="description"
+        content="Open Law Data Thailand: ปลดล็อกกฎหมายไทยสู่ยุค AI ฐานข้อมูลกฎหมายที่คอมพิวเตอร์อ่านได้ สำหรับนักพัฒนาและประชาชน">
+
+    <!-- Google Fonts: Prompt for Thai text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        'thai-blue': '#1e3a8a',
+                        'thai-dark': '#0f172a',
+                        'tech-accent': '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* APL: ใช้ฟอนต์ Noto Sans Thai เป็นหลัก */
-        body {
-            font-family: 'Noto Sans Thai', sans-serif;
+        /* Smooth scrolling */
+        html {
             scroll-behavior: smooth;
         }
-        
-        /* APL: Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #a0aec0; /* gray-400 */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: #718096; /* gray-500 */
-        }
-        ::-webkit-scrollbar-track {
-            background-color: #f1f5f9; /* slate-100 */
+
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
 
-    <!-- APL: Header -->
-    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-30">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <a href="#hero-section" class="flex-shrink-0 flex items-center">
-                    <i data-lucide="scale" class="h-8 w-8 text-blue-600"></i>
-                    <span class="ml-3 text-2xl font-bold text-slate-800">Open Law Data</span><span class="ml-2 text-xl font-light text-slate-500 hidden md:inline">| Thailand</span>
+<body class="font-sans text-gray-800 antialiased bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <a href="#" class="flex items-center gap-2">
+                    <i class="ph-fill ph-scales text-3xl text-thai-blue"></i>
+                    <span class="font-bold text-xl tracking-tight text-gray-900">OpenLaw<span
+                            class="text-tech-accent">Data</span></span>
                 </a>
-                <div class="hidden md:flex md:items-center md:space-x-6">
-                    <a href="#project-mission" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ภารกิจของเรา</a>
-                    <a href="#dataset-showcase" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ฐานข้อมูล</a>
-                    <a href="#footer" class="px-3 py-2 rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100">ติดต่อเรา</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-600 hover:text-thai-blue transition">เกี่ยวกับโครงการ</a>
+                    <a href="#stats" class="text-gray-600 hover:text-thai-blue transition">ข้อมูลล่าสุด</a>
+                    <a href="#architecture" class="text-gray-600 hover:text-thai-blue transition">สถาปัตยกรรม</a>
+                    <a href="#partners" class="text-gray-600 hover:text-thai-blue transition">พันธมิตร</a>
                 </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-600 hover:bg-slate-100">
-                        <i data-lucide="menu" class="h-6 w-6"></i>
+                <!-- Mobile menu button (Simple implementation) -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                        class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                        <i class="ph ph-list text-2xl"></i>
                     </button>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">เกี่ยวกับโครงการ</a>
+                <a href="#stats"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">ข้อมูลล่าสุด</a>
+                <a href="#partners"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">พันธมิตร</a>
+            </div>
+        </div>
+    </nav>
 
-    <!-- APL: Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- 1. Hero Section - ปรับใหม่เน้นภาพรวมโครงการ -->
-        <section id="hero-section" class="text-center py-16 md:py-24 bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
-            <div class="px-6">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-700 tracking-tight">
-                    Open Law Data Thailand
-                </h1>
-                <p class="mt-4 text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto">
-                    ภารกิจเพื่อทำให้ข้อมูลกฎหมายและเอกสารราชการไทย
-                    เข้าถึงได้ง่าย โปร่งใส และนำไปต่อยอดได้
-                </p>
-                <a href="#dataset-showcase"
-                   class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition duration-200 shadow-md mt-10">
-                    <i data-lucide="database" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
-                    ดูฐานข้อมูลที่เปิดเผยแล้ว
+    <!-- Hero Section -->
+    <section id="about" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span
+                class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-6 border border-blue-100">
+                🚀 อัปเดตล่าสุด: พฤศจิกายน 2568
+            </span>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
+                ปลดล็อกกฎหมายไทย<br>สู่ยุค <span class="gradient-text">Artificial Intelligence</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 mb-10">
+                ฐานข้อมูลกฎหมายกลางที่ครบถ้วนที่สุด ตั้งแต่ปี 2428 - ปัจจุบัน<br>
+                ในรูปแบบ Machine-Readable พร้อมสำหรับนักพัฒนาและทุกคน
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://huggingface.co/open-law-data-thailand" target="_blank"
+                    class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-thai-blue hover:bg-blue-800 md:text-lg transition shadow-lg shadow-blue-500/20 gap-2">
+                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face"
+                        class="w-5 h-5">
+                    ดาวน์โหลดข้อมูล
                 </a>
             </div>
-        </section>
+        </div>
 
-        <!-- 2. Project Mission (ที่มาที่ไป) -->
-        <section id="project-mission" class="mt-16 py-16 px-6 md:px-12 bg-white rounded-2xl shadow-lg border border-slate-200">
-            <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-8">
-                ที่มาและภารกิจของเรา
-            </h2>
-            <div class="max-w-3xl mx-auto text-lg text-slate-700 leading-relaxed space-y-4">
-                <p>
-                    โครงการ Open Law Data (ต่อยอดจาก <a target="_blank" href="https://docs.google.com/document/d/1rLwTcS3-slR4bBe8JXm8pDCu3VTmrIzoEgrdNMbv-9E/edit?tab=t.0"><strong class="font-semibold text-blue-600">T-LawGPT</strong></a>)
-                    เริ่มต้นจากความท้าทายที่ว่า ข้อมูลกฎหมายและเอกสารราชการไทยจำนวนมหาศาล
-                    กระจัดกระจาย, ค้นหาได้ยาก, และมักอยู่ในรูปแบบที่นำไปใช้งานต่อได้ลำบาก (เช่น ไฟล์สแกน PDF)
-                </p>
-                <p>
-                    ภารกิจของเราคือการรวบรวม, จัดการ, และเปิดเผยข้อมูลเหล่านี้ในรูปแบบ <strong class="font-semibold">Open Dataset</strong>
-                    ที่ "สะอาด" (Cleaned) และ "ถอดข้อความแล้ว" (OCR-ed)
-                    เพื่อสร้างรากฐานของความโปร่งใส และเปิดโอกาสให้นักพัฒนา, นักวิจัย, และประชาชนทั่วไป
-                    สามารถนำข้อมูลไปสร้างนวัตกรรมหรือเครื่องมือที่เป็นประโยชน์ต่อสังคมได้
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full overflow-hidden -z-10">
+            <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-[10%] right-[10%] w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="py-12 bg-white border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-thai-blue mb-2">2428</div>
+                    <div class="text-sm text-gray-500 font-medium">ข้อมูลย้อนหลังเก่าสุด</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-thai-blue mb-2">1.34M+</div>
+                    <div class="text-sm text-gray-500 font-medium">จำนวนไฟล์เอกสาร</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-thai-blue mb-2">170GB+</div>
+                    <div class="text-sm text-gray-500 font-medium">ขนาดข้อมูลรวม</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-thai-blue mb-2">24 Hrs</div>
+                    <div class="text-sm text-gray-500 font-medium">รอบการอัปเดตข้อมูล</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture / How it works -->
+    <section id="architecture" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">สถาปัตยกรรมระบบ (Architecture)</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">
+                    เราออกแบบระบบให้ทำงานอัตโนมัติ ยั่งยืน และไม่รบกวนเซิร์ฟเวอร์ต้นทาง
                 </p>
             </div>
-        </section>
 
-        <!-- 3. Dataset Showcase (โหมดย่อย) - ส่วนใหม่แทนที่ Search -->
-        <section id="dataset-showcase" class="mt-16">
-            <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-10">
-                ฐานข้อมูลที่เปิดเผยแล้ว (Available Datasets)
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                <!-- การ์ดที่ 1: ราชกิจจานุเบกษา (ลิงก์ไป HF) -->
-                <div class="flex flex-col bg-white p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-shadow duration-300">
-                    <div class="flex-shrink-0">
-                        <i data-lucide="archive" class="h-12 w-12 text-blue-600"></i>
-                        <h3 class="text-2xl font-bold text-slate-800 mt-4">
-                            ฐานข้อมูลราชกิจจานุเบกษา
-                        </h3>
-                        <p class="text-slate-600 mt-2">
-                            (soc-ratchakitcha)
-                        </p>
+            <div class="grid md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-thai-blue mb-6">
+                        <i class="ph-fill ph-database text-2xl"></i>
                     </div>
-                    <p class="text-slate-700 mt-4 flex-1">
-                        คลังข้อมูลราชกิจจานุเบกษาไทยย้อนหลัง 140+ ปี
-                        ที่ผ่านกระบวนการ OCR (Optical Character Recognition)
-                        เพื่อแปลงไฟล์ PDF เป็นข้อความ (Text) ที่ค้นหาและนำไปใช้งานต่อได้
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">1. Data Aggregation</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        ระบบ Bot อัจฉริยะดึงข้อมูลจากราชกิจจานุเบกษาและแหล่งข้อมูลภาครัฐ บริหารจัดการ Traffic
+                        ไม่ให้รบกวนต้นทาง
                     </p>
-                    <!-- สถิติข้อมูล -->
-                    <div class="mt-6 grid grid-cols-2 gap-4">
-                        <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
-                            <div class="text-3xl font-bold text-blue-600">1.3M+</div>
-                            <div class="text-slate-600 text-sm mt-1">เอกสาร (170GB+)</div>
-                        </div>
-                        <div class="bg-slate-100 p-4 rounded-xl border border-slate-200">
-                            <div class="text-3xl font-bold text-blue-600">1885</div>
-                            <div class="text-slate-600 text-sm mt-1">ข้อมูลถึงปี 2025</div>
-                        </div>
-                    </div>
-                    <a href="https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha" target="_blank"
-                       class="mt-8 inline-block w-full text-center bg-blue-600 text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-blue-700 transition duration-200 shadow-md">
-                        <i data-lucide="external-link" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
-                        Hugging Face Dataset
-                    </a>
                 </div>
 
-                <!-- การ์ดที่ 2: โครงการอนาคต (รองรับตาม Requirement) -->
-                <div class="flex flex-col bg-white p-8 rounded-2xl shadow-lg border border-slate-200 opacity-70">
-                    <div class="flex-shrink-0">
-                        <i data-lucide="loader-2" class="h-12 w-12 text-slate-400 animate-spin"></i>
-                        <h3 class="text-2xl font-bold text-slate-800 mt-4">
-                            ฐานข้อมูลกฎหมายอื่นๆ
-                        </h3>
-                        <p class="text-slate-500 mt-2">
-                            (เร็วๆ นี้)
-                        </p>
+
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
+                    <div
+                        class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 mb-6">
+                        <i class="ph-fill ph-scan text-2xl"></i>
                     </div>
-                    <p class="text-slate-600 mt-4 flex-1">
-                        ทีมงานกำลังอยู่ในระหว่างการติดต่อ รวบรวม และจัดเตรียมข้อมูล
-                        เช่น คำพิพากษาศาล, กฎกระทรวง, และข้อบัญญัติท้องถิ่น
-                        เพื่อเปิดเป็น Open Dataset ในลำดับถัดไป
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">2. Storage & OCR<br />(Coming Soon)</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        แยกเก็บข้อมูลร้อน/เย็น (Hot/Cold Storage) และประมวลผลภาพเป็นข้อความ (OCR)
+                        เพื่อให้ค้นหาได้ทุกตัวอักษร
                     </p>
-                    <button
-                       class="mt-8 inline-block w-full text-center bg-slate-200 text-slate-500 font-bold py-3 px-6 rounded-lg text-lg cursor-not-allowed">
-                        <i data-lucide="clock" class="inline-block h-5 w-5 mr-2 -mt-1"></i>
-                        Coming Soon
-                    </button>
                 </div>
 
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 relative z-10">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 mb-6">
+                        <i class="ph-fill ph-globe text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">3. Public Access</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        เปิดให้ดาวน์โหลดฟรีผ่าน Hugging Face เพื่อให้นักพัฒนานำไปสร้าง Legal Tech หรือ AI
+                        ได้ทันที
+                    </p>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- APL: Footer -->
-    <footer id="footer" class="mt-16 border-t border-slate-200 bg-white">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-            <p>
-                Credits: 
-              <strong class="text-slate-600">สำนักเลขาธิการคณะรัฐมนตรี</strong>, 
-              และผู้ร่วมพัฒนาทุกคน
-            </p>
-            <p class="mt-2">
-                License: <strong class="text-slate-600">Open Data (CC-BY)</strong>
-            </p>
+    <!-- Partners Section (Important) -->
+    <section id="partners" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">พันธมิตรและผู้สนับสนุน</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">
+                    ความสำเร็จนี้เกิดขึ้นจากความร่วมมือของหน่วยงานภาครัฐและเอกชน ที่มีวิสัยทัศน์ร่วมกัน
+                </p>
+            </div>
+
+            <!-- Grid Layout for Partners -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Senate -->
+                <div
+                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    <div
+                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        <i class="ph-fill ph-bank text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-blue-900">วุฒิสภา</h4>
+                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">ผู้ริเริ่มและสนับสนุนเชิงนโยบาย</p>
+                </div>
+
+                <!-- Cabinet Secretariat (SALA) -->
+                <a href="https://www.soc.go.th/" target="_blank" rel="noopener noreferrer"
+                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    <div
+                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        <i class="ph-fill ph-files text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-blue-900">สำนักเลขาธิการคณะรัฐมนตรี (สลค.)</h4>
+                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">ผู้สนับสนุนข้อมูลราชกิจจานุเบกษา</p>
+                </a>
+
+                <!-- DGA -->
+                <a href="https://www.dga.or.th/" target="_blank" rel="noopener noreferrer"
+                    class="flex flex-col items-center p-6 bg-blue-50 rounded-xl border border-blue-100 hover:shadow-md transition ring-2 ring-blue-100">
+                    <div
+                        class="h-16 w-16 bg-white rounded-full mb-4 flex items-center justify-center text-blue-600 shadow-sm">
+                        <i class="ph-fill ph-cloud text-3xl"></i>
+                    </div>
+                    <h4 class="font-bold text-blue-900">DGA (สพร.)</h4>
+                    <p class="text-sm text-blue-700 mt-2 text-center font-medium">สนับสนุนโครงสร้างพื้นฐานดิจิทัล</p>
+                </a>
+
+                <!-- Private Sector Row -->
+                <div class="lg:col-span-3 flex flex-wrap justify-center gap-6 mt-8" style="display: none;">
+                    <!-- UpPass -->
+                    <div
+                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
+                        <div class="bg-purple-100 p-3 rounded-lg text-purple-600">
+                            <i class="ph-fill ph-file-text text-2xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-gray-900">UpPass</h5>
+                            <p class="text-xs text-gray-500">สนับสนุนเทคโนโลยี Data Pipeline</p>
+                        </div>
+                    </div>
+
+                    <!-- IApp -->
+                    <div
+                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
+                        <div class="bg-blue-100 p-3 rounded-lg text-blue-900">
+                            <i class="ph-fill ph-brain text-2xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-gray-900">IApp Technology</h5>
+                            <p class="text-xs text-gray-500">สนับสนุนเทคโนโลยี OCR</p>
+                        </div>
+                    </div>
+
+                    <!-- StockRadars -->
+                    <div
+                        class="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 transition w-full md:w-auto">
+                        <div class="bg-green-100 p-3 rounded-lg text-green-600">
+                            <i class="ph-fill ph-chart-line-up text-2xl"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-gray-900">StockRadars</h5>
+                            <p class="text-xs text-gray-500">สนับสนุน Data Visualization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-thai-dark text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-2">Open Law Data Thailand</h3>
+                    <p class="text-gray-400 text-sm max-w-md">
+                        โครงการภาคประชาชนร่วมกับภาครัฐ เพื่อสร้างมาตรฐานข้อมูลกฎหมายไทยที่เปิดกว้าง เข้าถึงได้
+                        และนำไปใช้ประโยชน์ได้จริง
+                    </p>
+                </div>
+                <div class="flex flex-col md:items-end gap-4">
+                    <div class="flex space-x-4">
+                        <a href="https://huggingface.co/open-law-data-thailand" target="_blank"
+                            class="text-gray-400 hover:text-white transition">
+                            <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg"
+                                alt="Hugging Face"
+                                class="w-5 h-5 opacity-85 hover:opacity-100 transition grayscale hover:grayscale-0 inline-block"
+                                style="margin-top: 6px;">
+                        </a>
+                        <a href="https://github.com/DGA-Thailand/open-law-data" target="_blank"
+                            class="text-gray-400 hover:text-white transition"><i
+                                class="ph-fill ph-github-logo text-2xl"></i></a>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500 mb-1">License</p>
+                        <p class="text-sm font-medium text-gray-300 flex items-center gap-1">
+                            <i class="ph-bold ph-creative-commons"></i> CC BY-SA 4.0 (Attribution-ShareAlike)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
+                &copy; 2568 Open Law Data Project. All rights reserved.
+            </div>
         </div>
     </footer>
 
-
-    <!-- APL: JavaScript Logic (เหลือแค่สำหรับ Icons) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // APL: Render icons
-            lucide.createIcons();
-
-            // APL: Mobile menu (optional)
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            if(menuBtn) {
-                menuBtn.addEventListener('click', () => {
-                    // APL: Logic for mobile menu can be added here
-                    console.log("Mobile menu clicked");
-                });
-            }
-        });
-    </script>
 </body>
+
 </html>
