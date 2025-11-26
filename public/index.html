@@ -607,38 +607,108 @@
     </section>
 
     <!-- Data Preview Section -->
+    <!-- Data Structure & Documentation Section -->
     <section id="data-preview" class="py-20 bg-gray-50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <span
                     class="inline-block py-1 px-3 rounded-full bg-green-50 text-green-600 text-sm font-semibold mb-4 border border-green-100">
-                    📊 Data Sample
+                    📊 Data Structure
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ตัวอย่างข้อมูล (Data Preview)</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">โครงสร้างข้อมูล (Data Structure)</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto text-lg">
-                    ข้อมูลมีโครงสร้างชัดเจน พร้อมใช้งานทันที
+                    เราจัดเก็บข้อมูลในรูปแบบมาตรฐาน JSON ที่นักพัฒนาคุ้นเคย พร้อมคำอธิบายฟิลด์ข้อมูลอย่างละเอียด
+                    เพื่อให้คุณนำไปใช้งานได้ทันที
                 </p>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                <div class="bg-gray-900 px-6 py-4 flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                <!-- JSON Preview -->
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                    <div class="bg-gray-900 px-6 py-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-gray-400 text-sm font-mono">example.json</span>
                     </div>
-                    <span class="text-gray-400 text-sm font-mono"></span>
-                </div>
-                <pre class="p-6 overflow-x-auto text-sm"><code class="language-json text-gray-800">{
+                    <pre class="p-6 overflow-x-auto text-sm"><code class="language-json text-gray-800">{
   "no": "92",
-  "doctitle": "สารบัญ วันอาทิตย์ เดือนยี่ ขึ้นหกค่ำ ปีระกาสัปตศก ๑๒๔๗",
+  "doctitle": "สารบัญ วันอาทิตย์ เดือนยี่...",
   "bookNo": "1",
   "section": "55",
-  "category": "",
+  "category": "General",
   "publishDate": "1885-01-31",
   "pageNo": "479",
   "pdfFile": "1885-000092.pdf"
 }</code></pre>
+                    <div
+                        class="bg-gray-50 px-6 py-3 border-t border-gray-100 text-xs text-gray-500 flex justify-between items-center">
+                        <span>* ตัวอย่างข้อมูล Metadata</span>
+                        <a href="https://huggingface.co/open-law-data-thailand" target="_blank"
+                            class="text-thai-blue hover:underline">ดูข้อมูลทั้งหมด &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Data Dictionary -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                        <i class="ph-fill ph-book-open-text text-thai-blue"></i>
+                        คำอธิบายชุดข้อมูล (Data Dictionary)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 rounded-l-lg">Field</th>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3 rounded-r-lg">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-4 py-3 font-mono font-medium text-blue-600">no</td>
+                                    <td class="px-4 py-3 text-gray-500">String</td>
+                                    <td class="px-4 py-3">รหัสอ้างอิงเอกสาร</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-mono font-medium text-blue-600">doctitle</td>
+                                    <td class="px-4 py-3 text-gray-500">String</td>
+                                    <td class="px-4 py-3">ชื่อเรื่องเอกสาร</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-mono font-medium text-blue-600">publishDate</td>
+                                    <td class="px-4 py-3 text-gray-500">Date</td>
+                                    <td class="px-4 py-3">วันที่ประกาศ (ISO 8601)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-mono font-medium text-blue-600">pdfFile</td>
+                                    <td class="px-4 py-3 text-gray-500">String</td>
+                                    <td class="px-4 py-3">ชื่อไฟล์ต้นฉบับ (PDF)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <h4 class="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wider">Supported Formats</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-yellow-50 text-yellow-700 border border-yellow-100">
+                                <i class="ph-fill ph-brackets-curly mr-1.5"></i> JSONL
+                            </span>
+                            <span
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-red-50 text-red-700 border border-red-100">
+                                <i class="ph-fill ph-file-pdf mr-1.5"></i> PDF
+                            </span>
+                            <span
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-50 text-gray-700 border border-gray-200">
+                                <i class="ph-fill ph-archive mr-1.5"></i> Zip Archive
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
