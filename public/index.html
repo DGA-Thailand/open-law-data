@@ -192,10 +192,14 @@
                 </div>
 
                 <!-- Popup Card -->
-                <div id="update-popup"
-                    class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-80 md:w-96 bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 text-left transform origin-top scale-95 group-hover:scale-100 pointer-events-none group-hover:pointer-events-auto">
+                <div id="update-popup" class="fixed inset-0 z-[60] flex items-center justify-center md:absolute md:inset-auto md:top-full md:left-1/2 md:-translate-x-1/2 md:mt-2 md:block
+                    bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none
+                    opacity-0 invisible transition-all duration-300
+                    group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto pointer-events-none
+                    [&.popup-open]:opacity-100 [&.popup-open]:visible [&.popup-open]:pointer-events-auto">
                     <!-- Content will be injected here -->
-                    <div class="p-6 flex flex-col items-center justify-center text-gray-400 text-sm min-h-[150px]">
+                    <div
+                        class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 p-6 flex flex-col items-center justify-center text-gray-400 text-sm min-h-[150px]">
                         <i class="ph ph-spinner animate-spin text-2xl mb-2 text-blue-500"></i>
                         <span>กำลังเชื่อมต่อฐานข้อมูล...</span>
                     </div>
@@ -792,17 +796,20 @@
             // Mobile/Click support
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                const isVisible = popup.classList.contains('!opacity-100');
-                if (isVisible) {
-                    popup.classList.remove('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
-                } else {
-                    popup.classList.add('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
-                }
+                popup.classList.toggle('popup-open');
             });
 
             document.addEventListener('click', (e) => {
                 if (!trigger.contains(e.target) && !popup.contains(e.target)) {
-                    popup.classList.remove('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
+                    popup.classList.remove('popup-open');
+                }
+            });
+
+            // Close button handler (delegation)
+            popup.addEventListener('click', (e) => {
+                if (e.target.closest('#popup-close-btn')) {
+                    e.stopPropagation();
+                    popup.classList.remove('popup-open');
                 }
             });
 
@@ -858,14 +865,19 @@
 
                 // Populate popup
                 popup.innerHTML = `
-                    <div class="relative overflow-hidden rounded-2xl ring-1 ring-black/5">
+                    <div class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 transform transition-all duration-300 scale-95 group-hover:scale-100 md:origin-top relative">
+                        <!-- Close Button -->
+                        <button id="popup-close-btn" class="absolute top-3 right-3 z-50 p-1.5 rounded-full bg-black/20 hover:bg-black/30 text-white transition-colors backdrop-blur-sm">
+                            <i class="ph-bold ph-x text-sm"></i>
+                        </button>
+
                         <!-- Header -->
                         <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-5 text-white relative overflow-hidden">
                             <!-- Decorative circles -->
                             <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 rounded-full bg-white/10 blur-2xl"></div>
                             <div class="absolute bottom-0 left-0 -ml-4 -mb-4 w-20 h-20 rounded-full bg-blue-400/20 blur-xl"></div>
                             
-                            <div class="relative z-10">
+                            <div class="relative z-10 pr-8">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/10 shadow-sm">
                                         Source: soc-ratchakitcha
