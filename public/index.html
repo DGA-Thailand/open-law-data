@@ -183,19 +183,19 @@
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="animate-fade-in-up opacity-0 relative inline-block group z-50">
+            <div class="relative inline-block group z-50">
                 <div id="latest-update-trigger"
-                    class="cursor-pointer inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50/80 backdrop-blur-sm text-blue-600 text-sm font-semibold mb-8 border border-blue-100 shadow-sm ring-1 ring-blue-100/50 hover:bg-blue-100 transition-colors select-none">
+                    class="animate-fade-in-up opacity-0 cursor-pointer inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50/80 backdrop-blur-sm text-blue-600 text-sm font-semibold mb-8 border border-blue-100 shadow-sm ring-1 ring-blue-100/50 hover:bg-blue-100 transition-colors select-none">
                     <span id="update-indicator" class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     <span id="latest-update-text">อัปเดตล่าสุด: กำลังโหลด...</span>
                     <i class="ph-bold ph-info ml-2 text-blue-400"></i>
                 </div>
 
                 <!-- Popup Card -->
-                <div id="update-popup" class="fixed inset-0 z-[60] flex items-center justify-center md:absolute md:inset-auto md:top-full md:left-1/2 md:-translate-x-1/2 md:mt-2 md:block
-                    bg-black/20 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none
+                <div id="update-popup" class="fixed inset-0 z-[100] flex items-center justify-center md:absolute md:inset-auto md:top-full md:left-1/2 md:-translate-x-1/2 md:mt-2 md:block
+                    bg-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none
                     opacity-0 invisible transition-all duration-300
-                    group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto pointer-events-none
+                    md:group-hover:opacity-100 md:group-hover:visible md:group-hover:pointer-events-auto pointer-events-none
                     [&.popup-open]:opacity-100 [&.popup-open]:visible [&.popup-open]:pointer-events-auto">
                     <!-- Content will be injected here -->
                     <div
