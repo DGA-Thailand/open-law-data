@@ -883,7 +883,7 @@
                 popup.innerHTML = `
                     <div class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-y-auto max-h-[80vh] ring-1 ring-black/5 relative">
                         <!-- Close Button -->
-                        <button id="popup-close-btn" class="absolute top-3 right-3 z-50 p-1.5 rounded-full bg-black/20 hover:bg-black/30 text-white transition-colors backdrop-blur-sm">
+                        <button id="popup-close-btn" class="absolute top-5 right-3 z-50 p-1.5 rounded-full bg-black/20 hover:bg-black/30 text-white transition-colors backdrop-blur-sm">
                             <i class="ph-bold ph-x text-sm"></i>
                         </button>
 
@@ -896,7 +896,7 @@
                             <div class="relative z-10 pr-8">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/10 shadow-sm">
-                                        Source: soc-ratchakitcha
+                                        soc-ratchakitcha
                                     </span>
                                     <span class="text-[11px] text-blue-100 flex items-center bg-black/10 px-2 py-0.5 rounded-full">
                                         <i class="ph-fill ph-clock mr-1.5"></i> ${fullDate}
@@ -912,7 +912,7 @@
                                 <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1.5 flex items-center">
                                     <i class="ph-fill ph-file-text mr-1 text-blue-500"></i> Document Title
                                 </p>
-                                <p class="text-sm text-gray-700 font-medium line-clamp-3 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                <p class="text-sm text-gray-700 font-medium line-clamp-3 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100" style="overflow: scroll;">
                                     ${data.latest_record.doctitle}
                                 </p>
                             </div>
