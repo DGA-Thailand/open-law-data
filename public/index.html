@@ -191,19 +191,7 @@
                     <i class="ph-bold ph-info ml-2 text-blue-400"></i>
                 </div>
 
-                <!-- Popup Card -->
-                <div id="update-popup" class="fixed inset-0 z-[100] flex items-center justify-center md:absolute md:inset-auto md:top-full md:left-1/2 md:-translate-x-1/2 md:mt-2 md:block
-                    bg-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none
-                    opacity-0 invisible transition-all duration-300
-                    md:group-hover:opacity-100 md:group-hover:visible md:group-hover:pointer-events-auto pointer-events-none
-                    [&.popup-open]:opacity-100 [&.popup-open]:visible [&.popup-open]:pointer-events-auto">
-                    <!-- Content will be injected here -->
-                    <div
-                        class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 p-6 flex flex-col items-center justify-center text-gray-400 text-sm min-h-[150px]">
-                        <i class="ph ph-spinner animate-spin text-2xl mb-2 text-blue-500"></i>
-                        <span>กำลังเชื่อมต่อฐานข้อมูล...</span>
-                    </div>
-                </div>
+
             </div>
 
             <h1
@@ -786,6 +774,20 @@
         </div>
     </footer>
 
+    <!-- Popup Card (Moved to root) -->
+    <div id="update-popup" class="fixed inset-0 z-[100] flex items-center justify-center
+        bg-black/60 backdrop-blur-sm
+        opacity-0 invisible transition-all duration-300
+        pointer-events-none
+        [&.popup-open]:opacity-100 [&.popup-open]:visible [&.popup-open]:pointer-events-auto">
+        <!-- Content will be injected here -->
+        <div
+            class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-y-auto max-h-[80vh] ring-1 ring-black/5 p-6 flex flex-col items-center justify-center text-gray-400 text-sm min-h-[150px]">
+            <i class="ph ph-spinner animate-spin text-2xl mb-2 text-blue-500"></i>
+            <span>กำลังเชื่อมต่อฐานข้อมูล...</span>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const trigger = document.getElementById('latest-update-trigger');
@@ -793,23 +795,37 @@
             const badgeText = document.getElementById('latest-update-text');
             const indicator = document.getElementById('update-indicator');
 
+            // Helper to toggle popup and body scroll
+            const togglePopup = (show) => {
+                if (show) {
+                    popup.classList.add('popup-open');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    popup.classList.remove('popup-open');
+                    document.body.style.overflow = '';
+                }
+            };
+
             // Mobile/Click support
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                popup.classList.toggle('popup-open');
+                // Toggle logic
+                const isOpen = popup.classList.contains('popup-open');
+                togglePopup(!isOpen);
             });
 
             document.addEventListener('click', (e) => {
                 if (!trigger.contains(e.target) && !popup.contains(e.target)) {
-                    popup.classList.remove('popup-open');
+                    togglePopup(false);
                 }
             });
 
             // Close button handler (delegation)
             popup.addEventListener('click', (e) => {
-                if (e.target.closest('#popup-close-btn')) {
+                // Close if clicking the backdrop or the close button
+                if (e.target === popup || e.target.closest('#popup-close-btn')) {
                     e.stopPropagation();
-                    popup.classList.remove('popup-open');
+                    togglePopup(false);
                 }
             });
 
@@ -865,7 +881,7 @@
 
                 // Populate popup
                 popup.innerHTML = `
-                    <div class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 transform transition-all duration-300 scale-95 group-hover:scale-100 md:origin-top relative">
+                    <div class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-y-auto max-h-[80vh] ring-1 ring-black/5 relative">
                         <!-- Close Button -->
                         <button id="popup-close-btn" class="absolute top-3 right-3 z-50 p-1.5 rounded-full bg-black/20 hover:bg-black/30 text-white transition-colors backdrop-blur-sm">
                             <i class="ph-bold ph-x text-sm"></i>
