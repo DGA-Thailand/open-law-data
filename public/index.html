@@ -183,12 +183,23 @@
     <!-- Hero Section -->
     <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="animate-fade-in-up opacity-0">
-                <span
-                    class="inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50/80 backdrop-blur-sm text-blue-600 text-sm font-semibold mb-8 border border-blue-100 shadow-sm ring-1 ring-blue-100/50">
-                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                    อัปเดตล่าสุด: พฤศจิกายน 2568
-                </span>
+            <div class="animate-fade-in-up opacity-0 relative inline-block group z-50">
+                <div id="latest-update-trigger"
+                    class="cursor-pointer inline-flex items-center py-1.5 px-4 rounded-full bg-blue-50/80 backdrop-blur-sm text-blue-600 text-sm font-semibold mb-8 border border-blue-100 shadow-sm ring-1 ring-blue-100/50 hover:bg-blue-100 transition-colors select-none">
+                    <span id="update-indicator" class="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                    <span id="latest-update-text">อัปเดตล่าสุด: กำลังโหลด...</span>
+                    <i class="ph-bold ph-info ml-2 text-blue-400"></i>
+                </div>
+
+                <!-- Popup Card -->
+                <div id="update-popup"
+                    class="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-80 md:w-96 bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 text-left transform origin-top scale-95 group-hover:scale-100 pointer-events-none group-hover:pointer-events-auto">
+                    <!-- Content will be injected here -->
+                    <div class="p-6 flex flex-col items-center justify-center text-gray-400 text-sm min-h-[150px]">
+                        <i class="ph ph-spinner animate-spin text-2xl mb-2 text-blue-500"></i>
+                        <span>กำลังเชื่อมต่อฐานข้อมูล...</span>
+                    </div>
+                </div>
             </div>
 
             <h1
@@ -771,6 +782,160 @@
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const trigger = document.getElementById('latest-update-trigger');
+            const popup = document.getElementById('update-popup');
+            const badgeText = document.getElementById('latest-update-text');
+            const indicator = document.getElementById('update-indicator');
+
+            // Mobile/Click support
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isVisible = popup.classList.contains('!opacity-100');
+                if (isVisible) {
+                    popup.classList.remove('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
+                } else {
+                    popup.classList.add('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!trigger.contains(e.target) && !popup.contains(e.target)) {
+                    popup.classList.remove('!opacity-100', '!visible', '!scale-100', '!pointer-events-auto');
+                }
+            });
+
+            try {
+                const response = await fetch('https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/latest_update.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+
+                // Update badge text
+                const pipelineDate = new Date(data.last_updated_pipeline);
+                const now = new Date();
+                const diffTime = Math.abs(now - pipelineDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                // Check for stale data (> 3 days)
+                if (diffDays > 3) {
+                    indicator.classList.remove('bg-green-500', 'animate-pulse');
+                    indicator.classList.add('bg-red-500');
+                } else {
+                    // Ensure green and pulsing if fresh
+                    indicator.classList.add('bg-green-500', 'animate-pulse');
+                    indicator.classList.remove('bg-red-500', 'bg-gray-400');
+                }
+
+                const publishDate = new Date(data.latest_record.publishDate);
+                const thaiDate = publishDate.toLocaleDateString('th-TH', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                badgeText.textContent = `อัปเดตล่าสุด: ${thaiDate}`;
+
+                // Format date for popup (using pipeline date for "checked at" or keep using pipeline date?)
+                // The popup shows "Source: ...  [Clock Icon] Date". 
+                // Usually this small date in the header is the "System Updated" time.
+                // Let's keep the popup header using the pipeline date (fullDate) as it represents the system state.
+                const fullDate = pipelineDate.toLocaleDateString('th-TH', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                // Calculate PDF URL
+                let pdfUrl = '';
+                if (data.latest_record.pdf_file && data.latest_record.publishDate) {
+                    const pubDate = new Date(data.latest_record.publishDate);
+                    const year = pubDate.getFullYear();
+                    const month = String(pubDate.getMonth() + 1).padStart(2, '0');
+                    pdfUrl = `https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/pdf/${year}/${year}-${month}/${data.latest_record.pdf_file}`;
+                }
+
+                // Populate popup
+                popup.innerHTML = `
+                    <div class="relative overflow-hidden rounded-2xl ring-1 ring-black/5">
+                        <!-- Header -->
+                        <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-5 text-white relative overflow-hidden">
+                            <!-- Decorative circles -->
+                            <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 rounded-full bg-white/10 blur-2xl"></div>
+                            <div class="absolute bottom-0 left-0 -ml-4 -mb-4 w-20 h-20 rounded-full bg-blue-400/20 blur-xl"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/10 shadow-sm">
+                                        Source: soc-ratchakitcha
+                                    </span>
+                                    <span class="text-[11px] text-blue-100 flex items-center bg-black/10 px-2 py-0.5 rounded-full">
+                                        <i class="ph-fill ph-clock mr-1.5"></i> ${fullDate}
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-lg leading-tight text-white/95">ข้อมูลล่าสุดในระบบ</h3>
+                            </div>
+                        </div>
+                        
+                        <!-- Body -->
+                        <div class="p-5 bg-white/95 backdrop-blur-md">
+                            <div class="mb-4">
+                                <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1.5 flex items-center">
+                                    <i class="ph-fill ph-file-text mr-1 text-blue-500"></i> Document Title
+                                </p>
+                                <p class="text-sm text-gray-700 font-medium line-clamp-3 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                    ${data.latest_record.doctitle}
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div class="bg-blue-50/50 p-2.5 rounded-xl border border-blue-100/50 hover:bg-blue-50 transition-colors">
+                                    <p class="text-[10px] text-blue-500 uppercase font-bold mb-0.5">Book No.</p>
+                                    <p class="text-sm font-bold text-blue-900">${data.latest_record.bookNo}</p>
+                                </div>
+                                <div class="bg-blue-50/50 p-2.5 rounded-xl border border-blue-100/50 hover:bg-blue-50 transition-colors">
+                                    <p class="text-[10px] text-blue-500 uppercase font-bold mb-0.5">Section</p>
+                                    <p class="text-sm font-bold text-blue-900">${data.latest_record.section}</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                <div class="text-[10px] text-gray-400 font-mono">
+                                    ID: ${data.latest_record.id}
+                                </div>
+                                ${pdfUrl ? `
+                                <a href="${pdfUrl}" 
+                                   target="_blank"
+                                   class="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center group/btn">
+                                    View PDF <i class="ph-bold ph-arrow-right ml-1 group-hover/btn:translate-x-0.5 transition-transform"></i>
+                                </a>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error fetching update data:', error);
+
+                // Error state: Gray static dot
+                indicator.classList.remove('bg-green-500', 'animate-pulse');
+                indicator.classList.add('bg-gray-400');
+
+                badgeText.textContent = 'อัปเดตล่าสุด: ไม่สามารถดึงข้อมูลได้';
+                popup.innerHTML = `
+                    <div class="p-6 text-center text-red-500 bg-white rounded-2xl border border-red-100 shadow-lg">
+                        <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="ph-fill ph-warning-circle text-2xl"></i>
+                        </div>
+                        <p class="text-sm font-medium">ไม่สามารถโหลดข้อมูลได้ในขณะนี้</p>
+                        <p class="text-xs text-red-400 mt-1">กรุณาลองใหม่อีกครั้งภายหลัง</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 
 </html>
