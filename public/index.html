@@ -809,7 +809,6 @@
             // Mobile/Click support
             trigger.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Toggle logic
                 const isOpen = popup.classList.contains('popup-open');
                 togglePopup(!isOpen);
             });
@@ -820,137 +819,180 @@
                 }
             });
 
-            // Close button handler (delegation)
             popup.addEventListener('click', (e) => {
-                // Close if clicking the backdrop or the close button
                 if (e.target === popup || e.target.closest('#popup-close-btn')) {
                     e.stopPropagation();
                     togglePopup(false);
                 }
             });
 
+            // Define sources
+            const sources = [{
+                name: 'ราชกิจจานุเบกษา',
+                key: 'soc-ratchakitcha',
+                url: 'https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/latest_update.json',
+                icon: 'ph-scroll',
+                color: 'blue'
+            },
+            ];
+
             try {
-                const response = await fetch('https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/latest_update.json');
-                if (!response.ok) throw new Error('Network response was not ok');
-                const data = await response.json();
+                // Fetch all sources in parallel
+                const results = await Promise.allSettled(sources.map(s => fetch(s.url).then(r => {
+                    if (!r.ok) throw new Error(r.statusText);
+                    return r.json();
+                })));
 
-                // Update badge text
-                const pipelineDate = new Date(data.last_updated_pipeline);
-                const now = new Date();
-                const diffTime = Math.abs(now - pipelineDate);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                let latestPipelineDate = new Date(0);
+                let validDataFound = false;
 
-                // Check for stale data (> 3 days)
-                if (diffDays > 3) {
-                    indicator.classList.remove('bg-green-500', 'animate-pulse');
-                    indicator.classList.add('bg-red-500');
-                } else {
-                    // Ensure green and pulsing if fresh
-                    indicator.classList.add('bg-green-500', 'animate-pulse');
-                    indicator.classList.remove('bg-red-500', 'bg-gray-400');
-                }
-
-                const publishDate = new Date(data.latest_record.publishDate);
-                const thaiDate = publishDate.toLocaleDateString('th-TH', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
+                // 1. Determine System Status (based on latest pipeline run)
+                results.forEach((result) => {
+                    if (result.status === 'fulfilled') {
+                        validDataFound = true;
+                        const data = result.value;
+                        if (data.last_updated_pipeline) {
+                            const pDate = new Date(data.last_updated_pipeline);
+                            if (pDate > latestPipelineDate) latestPipelineDate = pDate;
+                        }
+                    }
                 });
-                badgeText.textContent = `อัปเดตล่าสุด: ${thaiDate}`;
 
-                // Format date for popup (using pipeline date for "checked at" or keep using pipeline date?)
-                // The popup shows "Source: ...  [Clock Icon] Date". 
-                // Usually this small date in the header is the "System Updated" time.
-                // Let's keep the popup header using the pipeline date (fullDate) as it represents the system state.
-                const fullDate = pipelineDate.toLocaleDateString('th-TH', {
+                if (!validDataFound) throw new Error('No data available from any source');
+
+                // Update Main Button (Pipeline Date)
+                const thaiPipelineDate = latestPipelineDate.toLocaleDateString('th-TH', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: '2-digit',
                     hour: '2-digit',
                     minute: '2-digit'
                 });
 
-                // Calculate PDF URL
-                let pdfUrl = '';
-                if (data.latest_record.pdf_file && data.latest_record.publishDate) {
-                    const pubDate = new Date(data.latest_record.publishDate);
-                    const year = pubDate.getFullYear();
-                    const month = String(pubDate.getMonth() + 1).padStart(2, '0');
-                    pdfUrl = `https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/pdf/${year}/${year}-${month}/${data.latest_record.pdf_file}`;
+                // Check freshness (> 3 days = red)
+                const now = new Date();
+                const diffHours = Math.abs(now - latestPipelineDate) / 36e5;
+
+                if (diffHours > 72) {
+                    indicator.classList.remove('bg-green-500', 'animate-pulse');
+                    indicator.classList.add('bg-red-500');
+                } else {
+                    indicator.classList.add('bg-green-500', 'animate-pulse');
+                    indicator.classList.remove('bg-red-500', 'bg-gray-400');
                 }
 
-                // Populate popup
-                popup.innerHTML = `
-                    <div class="w-[90%] max-w-sm md:w-96 mx-auto bg-white/95 md:bg-white/90 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-y-auto max-h-[80vh] ring-1 ring-black/5 relative">
-                        <!-- Close Button -->
-                        <button id="popup-close-btn" class="absolute top-3 right-3 z-50 w-8 h-8 flex items-center justify-center rounded-full bg-black/20 hover:bg-black/30 text-white transition-colors backdrop-blur-sm">
-                            <i class="ph-bold ph-x text-lg"></i>
-                        </button>
+                badgeText.textContent = `อัปเดตล่าสุด: ${thaiPipelineDate}`;
 
+                // 2. Build Popup Content (List of Sources)
+                let popupContentHtml = `
+                    <div class="w-[90%] max-w-lg mx-auto bg-white/95 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 relative flex flex-col max-h-[80vh]">
                         <!-- Header -->
-                        <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-5 text-white relative overflow-hidden">
+                        <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-6 text-white relative overflow-hidden shrink-0">
                             <!-- Decorative circles -->
                             <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 rounded-full bg-white/10 blur-2xl"></div>
                             <div class="absolute bottom-0 left-0 -ml-4 -mb-4 w-20 h-20 rounded-full bg-blue-400/20 blur-xl"></div>
                             
-                            <div class="relative z-10 pr-8">
-                                <h3 class="font-bold text-lg leading-tight text-white/95" style="margin-bottom: 8px;">ข้อมูลล่าสุดในระบบ</h3>
-                                <div class="flex items-center mb-2">
-                                    <span class="text-[10px] font-bold uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full backdrop-blur-sm border border-white/10 shadow-sm">
-                                        <i class="ph-fill ph-database mr-1.5"></i>soc-ratchakitcha
-                                    </span>
-                                    <span class="text-[11px] text-blue-100 flex items-center bg-black/10 px-2 py-0.5 rounded-full">
-                                        <i class="ph-fill ph-clock mr-1.5"></i> ${fullDate}
-                                    </span>
+                            <div class="relative z-10 flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-bold text-xl leading-tight text-white/95 mb-1">สถานะข้อมูลล่าสุด</h3>
+                                    <p class="text-xs text-blue-100/80 font-medium">แยกตามแหล่งที่มา (Data Sources)</p>
                                 </div>
+                                <button id="popup-close-btn" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/10">
+                                    <i class="ph-bold ph-x text-white"></i>
+                                </button>
                             </div>
                         </div>
                         
                         <!-- Body -->
-                        <div class="p-5 bg-white/95 backdrop-blur-md">
-                            <div class="mb-4">
-                                <p class="text-[10px] text-gray-400 uppercase tracking-wider font-bold mb-1.5 flex items-center">
-                                    <i class="ph-fill ph-file-text mr-1 text-blue-500"></i> Document Title
-                                </p>
-                                <p class="text-sm text-gray-700 font-medium line-clamp-5 leading-relaxed bg-gray-50 p-3 rounded-xl border border-gray-100" style="overflow: scroll;">
-                                    ${data.latest_record.doctitle}
-                                </p>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 gap-3 mb-4">
-                                <div class="bg-blue-50/50 p-2.5 rounded-xl border border-blue-100/50 hover:bg-blue-50 transition-colors">
-                                    <p class="text-[10px] text-blue-500 uppercase font-bold mb-0.5">Book No.</p>
-                                    <p class="text-sm font-bold text-blue-900">${data.latest_record.bookNo}</p>
-                                </div>
-                                <div class="bg-blue-50/50 p-2.5 rounded-xl border border-blue-100/50 hover:bg-blue-50 transition-colors">
-                                    <p class="text-[10px] text-blue-500 uppercase font-bold mb-0.5">Section</p>
-                                    <p class="text-sm font-bold text-blue-900">${data.latest_record.section}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center justify-between pt-3 border-t border-gray-100">
-                                <div class="text-[10px] text-gray-400 font-mono">
-                                    ID: ${data.latest_record.id}
-                                </div>
-                                ${pdfUrl ? `
-                                <a href="${pdfUrl}" 
-                                   target="_blank"
-                                   class="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all flex items-center group/btn">
-                                    View PDF <i class="ph-bold ph-arrow-right ml-1 group-hover/btn:translate-x-0.5 transition-transform"></i>
-                                </a>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
+                        <div class="p-5 overflow-y-auto space-y-4 bg-gray-50/50">
                 `;
+
+                results.forEach((result, index) => {
+                    const source = sources[index];
+
+                    if (result.status === 'fulfilled') {
+                        const data = result.value;
+                        const record = data.latest_record;
+                        const pubDate = new Date(record.publishDate);
+                        const pubDateStr = pubDate.toLocaleDateString('th-TH', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+
+                        // PDF URL Logic
+                        let pdfUrl = '';
+                        if (source.key === 'soc-ratchakitcha' && record.pdf_file) {
+                            const year = pubDate.getFullYear();
+                            const month = String(pubDate.getMonth() + 1).padStart(2, '0');
+                            pdfUrl = `https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/pdf/${year}/${year}-${month}/${record.pdf_file}`;
+                        }
+
+                        popupContentHtml += `
+                            <div class="group bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden">
+                                <!-- Card Decoration -->
+                                <div class="absolute top-0 right-0 w-16 h-16 bg-${source.color}-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:scale-110 transition-transform"></div>
+
+                                <div class="relative z-10">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="w-10 h-10 rounded-xl bg-${source.color}-50 text-${source.color}-600 flex items-center justify-center shadow-sm border border-${source.color}-100">
+                                            <i class="ph-fill ${source.icon} text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-sm">${source.name}</h4>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded border border-gray-200 font-mono">${source.key}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-gray-50/80 p-3 rounded-lg border border-gray-100/50 mb-3 group-hover:border-${source.color}-100/50 group-hover:bg-${source.color}-50/30 transition-colors">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <p class="text-[10px] text-gray-400 font-bold uppercase">เอกสารล่าสุด</p>
+                                            <span class="text-[10px] text-${source.color}-600 font-medium bg-white px-1.5 py-0.5 rounded shadow-sm">${pubDateStr}</span>
+                                        </div>
+                                        <p class="text-sm text-gray-800 font-medium line-clamp-2 leading-relaxed" title="${record.doctitle}">${record.doctitle}</p>
+                                    </div>
+
+                                    ${pdfUrl ? `
+                                    <a href="${pdfUrl}" target="_blank" class="flex items-center justify-center w-full py-2 text-xs font-bold text-white bg-${source.color}-600 hover:bg-${source.color}-700 rounded-lg shadow-sm hover:shadow hover:-translate-y-0.5 transition-all gap-2">
+                                        <i class="ph-bold ph-file-pdf"></i> ดูเอกสารฉบับเต็ม
+                                    </a>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Error State for this source
+                        popupContentHtml += `
+                            <div class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm opacity-75 grayscale hover:grayscale-0 transition-all">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-100 text-gray-400 flex items-center justify-center">
+                                        <i class="ph-fill ${source.icon} text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-sm">${source.name}</h4>
+                                        <span class="text-xs text-red-400 flex items-center gap-1 font-medium bg-red-50 px-2 py-0.5 rounded-full mt-1 w-fit">
+                                            <i class="ph-bold ph-warning-circle"></i> ไม่พบข้อมูลล่าสุด
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                popupContentHtml += `</div></div>`;
+                popup.innerHTML = popupContentHtml;
 
             } catch (error) {
                 console.error('Error fetching update data:', error);
-
-                // Error state: Gray static dot
                 indicator.classList.remove('bg-green-500', 'animate-pulse');
                 indicator.classList.add('bg-gray-400');
+                badgeText.textContent = 'อัปเดตระบบ: ไม่ทราบสถานะ';
 
-                badgeText.textContent = 'อัปเดตล่าสุด: ไม่สามารถดึงข้อมูลได้';
                 popup.innerHTML = `
-                    <div class="p-6 text-center text-red-500 bg-white rounded-2xl border border-red-100 shadow-lg">
+                    <div class="p-6 text-center text-red-500 bg-white rounded-2xl border border-red-100 shadow-lg max-w-sm mx-auto">
                         <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-3">
                             <i class="ph-fill ph-warning-circle text-2xl"></i>
                         </div>
