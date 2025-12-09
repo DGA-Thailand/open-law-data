@@ -537,6 +537,7 @@
                         วุฒิสภา</h4>
                     <p class="text-sm text-gray-500 mt-2 text-center leading-relaxed">
                         <span class="font-semibold text-thai-blue">คณะทํางาน Open Law Data</span><br>
+                        <span class="font-semibold text-thai">โดย ตวงคุณ ทรงธรรมวัฒน์</span><br>
                         ผู้ริเริ่มโครงการ
                     </p>
                 </div>
@@ -605,6 +606,70 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credits Section -->
+    <section id="credits" class="py-24 bg-white border-t border-gray-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-indigo-50 text-indigo-600 text-sm font-semibold mb-4 border border-indigo-100">
+                    ⚡ Powering the System
+                </span>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">เทคโนโลยีเบื้องหลัง (Technology Support)</h2>
+                ความสำเร็จในการพัฒนาระบบเกิดจากการสนับสนุนเทคโนโลยีชั้นนำจากพันธมิตรผู้เชี่ยวชาญ
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                <!-- Uppass -->
+                <a href="https://www.uppass.io" target="_blank" rel="noopener noreferrer"
+                    class="group relative p-8 bg-white rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col items-start gap-6">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-bl-[100px] -mr-10 -mt-10 transition-transform group-hover:scale-110 z-0">
+                    </div>
+
+                    <!-- Logo Container -->
+                    <div class="relative z-10 h-8 w-full flex items-center justify-start">
+                        <img src="images/logo/uppass.svg" alt="UpPass Logo"
+                            class="h-full w-auto object-contain object-left">
+                    </div>
+
+                    <div class="relative z-10">
+                        <p class="text-indigo-600 font-medium leading-relaxed mb-3">
+                            "สนับสนุนเทคโนโลยีในการพัฒนาระบบ"
+                        </p>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            ช่วยให้การจัดการข้อมูลขนาดใหญ่เป็นไปอย่างรวดเร็วและมีประสิทธิภาพ
+                            เพิ่มข้อมูลเข้าสู่ระบบโดยอัตโนมัติ
+                        </p>
+                    </div>
+                </a>
+
+                <!-- iApp -->
+                <a href="https://iapp.co.th" target="_blank" rel="noopener noreferrer"
+                    class="group relative p-8 bg-white rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col items-start gap-6">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-bl-[100px] -mr-10 -mt-10 transition-transform group-hover:scale-110 z-0">
+                    </div>
+
+                    <!-- Logo Container -->
+                    <div class="relative z-10 h-8 w-full flex items-center justify-start">
+                        <img src="images/logo/iapp.svg" alt="iApp Technology Logo"
+                            class="h-full w-auto object-contain object-left">
+                    </div>
+
+                    <div class="relative z-10">
+                        <p class="text-blue-600 font-medium leading-relaxed mb-3">
+                            "สนับสนุนเครื่องมือการทำ OCR"
+                        </p>
+                        <p class="text-sm text-gray-500 leading-relaxed">
+                            เทคโนโลยีปัญญาประดิษฐ์สำหรับการแปลงภาพเอกสารเป็นข้อความที่มีความแม่นยำสูง
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -939,7 +1004,11 @@
                                             <i class="ph-fill ${source.icon} text-xl"></i>
                                         </div>
                                         <div>
-                                            <h4 class="font-bold text-gray-900 text-sm">${source.name}</h4>
+                                            <div class="flex items-center gap-2">
+                                                <a href="https://huggingface.co/datasets/open-law-data-thailand/${source.key}" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors" title="ดูชุดข้อมูลบน Hugging Face">
+                                                    <h4 class="font-bold text-gray-900 text-sm">${source.name} <i class="ph-bold ph-arrow-square-out text-sm"></i></h4>
+                                                </a>
+                                            </div>
                                             <div class="flex items-center gap-2">
                                                 <span class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded border border-gray-200 font-mono">${source.key}</span>
                                             </div>
