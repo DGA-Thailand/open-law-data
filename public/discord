@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Law Data Thailand - Discord Redirect</title>
+
+    <!-- Meta Refresh for auto-redirect -->
+    <meta http-equiv="refresh" content="0; url=https://discord.gg/mywTzfrzaA">
+
+    <!-- Open Graph / Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Join Open Law Data Community (Discord)">
+    <meta property="og:description"
+        content="เข้าร่วมชุมชน Open Law Data Thailand บน Discord เพื่อพูดคุยและสอบถามข้อมูล">
+    <meta property="og:image" content="./images/og/og_image.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        'thai-blue': '#1e3a8a',
+                        'tech-accent': '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 flex items-center justify-center min-h-screen font-sans p-4">
+    <div
+        class="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center animate-fade-in-up relative overflow-hidden">
+
+        <!-- Decoration BG -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+
+        <div
+            class="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-indigo-600 shadow-sm transform hover:scale-105 transition-transform duration-300">
+            <i class="ph-fill ph-discord-logo text-4xl"></i>
+        </div>
+
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Open Law Data Community</h1>
+        <p class="text-gray-500 mb-8 text-lg">กำลังนำทางไปยัง Discord...</p>
+
+        <!-- Loading Spinner -->
+        <div class="flex justify-center mb-8">
+            <svg class="animate-spin h-10 w-10 text-thai-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+        </div>
+
+        <div class="text-sm text-gray-400 bg-gray-50 p-4 rounded-xl">
+            <p class="mb-2">หากหน้านี้ยังค้างอยู่</p>
+            <a href="https://discord.gg/mywTzfrzaA"
+                class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-thai-blue hover:bg-blue-800 rounded-lg transition-colors gap-2">
+                <i class="ph-bold ph-arrow-right"></i>
+                คลิกที่นี่เพื่อไปต่อ
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Automatic Redirect Script as fallback/enhancement
+        setTimeout(function () {
+            window.location.href = "https://discord.gg/mywTzfrzaA";
+        }, 1500); // 1.5s delay to let user see the branding if meta refresh is slow
+    </script>
+</body>
+
+</html>
