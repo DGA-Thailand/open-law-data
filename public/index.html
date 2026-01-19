@@ -42,6 +42,9 @@
 
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>var module = { exports: {} };</script>
+    <script src="https://unpkg.com/fast-toml@0.5.4/fast-toml.js"></script>
+    <script>var toml = module.exports;</script>
 
     <script>
         tailwind.config = {
@@ -280,6 +283,34 @@
         </div>
     </section>
 
+
+
+    <!-- Community Showcase Section -->
+    <section id="showcase" class="py-20 bg-gray-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4 border border-blue-100">
+                    🚀 Community Showcase
+                </span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">นวัตกรรมจากชุมชน</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                    ผลงานที่พัฒนาต่อยอดจากข้อมูล Open Law Data โดยนักพัฒนาชาวไทย
+                </p>
+            </div>
+
+            <div id="showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center col-span-full py-12 text-gray-500 flex flex-col items-center">
+                    <div class="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4">
+                    </div>
+                    Loading showcases...
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
     <!-- Project Introduction Section -->
     <section id="about" class="py-20 bg-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -455,14 +486,14 @@
     </section>
 
     <!-- Use Cases Section -->
-    <section id="use-cases" class="py-20 bg-gray-50">
+    <section id="use-cases" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <span
                     class="inline-block py-1 px-3 rounded-full bg-purple-50 text-purple-600 text-sm font-semibold mb-4 border border-purple-100">
                     💡 Inspiration
                 </span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ตัวอย่างการนำไปใช้ (Use Cases)</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ตัวอย่างการนำไปใช้</h2>
                 <p class="text-gray-500 max-w-2xl mx-auto text-lg">
                     ข้อมูลเปิดกว้าง สร้างความเป็นไปได้ใหม่ๆ ให้กับวงการกฎหมายไทย
                 </p>
@@ -519,6 +550,8 @@
             </div>
         </div>
     </section>
+
+
 
     <!-- Partners Section (Important) -->
     <section id="partners" class="py-20 bg-white">
@@ -1080,6 +1113,99 @@
                 `;
             }
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadShowcases();
+        });
+
+        async function loadShowcases() {
+            const container = document.getElementById('showcase-grid');
+
+            try {
+                // 1. Fetch file TOML
+                const response = await fetch('./data/showcases.toml');
+                if (!response.ok) throw new Error('Failed to load showcases');
+
+                const tomlText = await response.text();
+
+                // 2. Parse TOML to JSON Object
+                const data = toml.parse(tomlText);
+
+                // 3. Render Cards
+                renderCards(data.projects, container);
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 text-red-500">
+                            <i class="ph-fill ph-warning-circle text-3xl"></i>
+                        </div>
+                        <p class="text-red-600 font-medium">ไม่สามารถโหลดข้อมูลได้ในขณะนี้</p>
+                    </div>`;
+            }
+        }
+
+        function renderCards(projects, container) {
+            if (!projects || projects.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-12">ยังไม่มีรายการ Showcase</div>`;
+                return;
+            }
+
+            // Sort: Featured first, then by date (newest first)
+            projects.sort((a, b) => (Number(b.featured) - Number(a.featured)) || new Date(b.date) - new Date(a.date));
+
+            const html = projects.map(project => `
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
+              <div class="p-6 flex-1 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                  ${project.featured ? '<span class="text-amber-400 text-lg drop-shadow-sm" title="Featured Project"><i class="ph-fill ph-star"></i></span>' : ''}
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-thai-blue transition-colors leading-tight">
+                  <a href="${project.url}" target="_blank">
+                    ${project.title}
+                  </a>
+                </h3>
+                <p class="text-gray-500 text-sm mb-6 line-clamp-3 leading-relaxed">
+                  ${project.description}
+                </p>
+                
+                <div class="flex flex-wrap gap-2 mt-auto">
+                  ${project.tags.map(tag =>
+                `<span class="text-xs text-gray-500 bg-gray-50 px-2.5 py-1 rounded-md border border-gray-100">#${tag}</span>`
+            ).join('')}
+                </div>
+              </div>
+              
+              <div class="bg-gray-50/50 px-6 py-4 border-t border-gray-100 flex justify-between items-center mt-auto">
+                <div class="flex items-center gap-2 text-sm text-gray-500 truncate mr-2">
+                  <i class="ph-fill ph-user-circle text-lg text-gray-400"></i>
+                  <a href="${project.author_url}" target="_blank" class="font-medium text-gray-700 hover:text-thai-blue hover:underline transition-colors">${project.author}</a>
+                </div>
+                <a href="${project.url}" target="_blank" class="text-thai-blue hover:text-blue-700 text-sm font-semibold flex items-center gap-1 whitespace-nowrap group/link">
+                  View Project <i class="ph-bold ph-arrow-right group-hover/link:translate-x-1 transition-transform"></i>
+                </a>
+              </div>
+            </div>
+          `).join('');
+
+            container.innerHTML = html + `
+            <a href="https://github.com/DGA-Thailand/open-law-data/blob/main/public/data/showcases.toml" target="_blank"
+                class="bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 flex flex-col items-center justify-center p-8 text-center group h-full cursor-pointer min-h-[300px]">
+                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform text-gray-400 group-hover:text-blue-500">
+                     <i class="ph-bold ph-plus text-3xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">มีของดีอย่าเก็บไว้คนเดียว</h3>
+                <p class="text-gray-500 text-sm mb-4 max-w-[200px]">
+                    ส่ง Pull Request มาเพิ่มโครงการของคุณในหน้านี้ได้เลย
+                </p>
+                <span class="text-sm font-semibold text-blue-600 flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Submit Project <i class="ph-bold ph-arrow-right"></i>
+                </span>
+            </a>
+            `;
+        }
     </script>
 </body>
 

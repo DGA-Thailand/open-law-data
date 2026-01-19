@@ -1,0 +1,10 @@
+# showcases.toml
+
+[[projects]]
+title = "Open Law Data on BigQuery"
+author = "dtinth"
+author_url = "https://github.com/dtinth"
+description = "Syncs OCR data to Google BigQuery daily. Allows developers to query 1.3M+ records using SQL without downloading large files."
+tags = ["BigQuery", "SQL"]
+url = "https://github.com/dtinth/openlawdata-bigquery"
+date = "2026-01-18"
