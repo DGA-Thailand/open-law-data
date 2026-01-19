@@ -8,3 +8,12 @@ description = "Syncs OCR data to Google BigQuery daily. Allows developers to que
 tags = ["BigQuery", "SQL"]
 url = "https://github.com/dtinth/openlawdata-bigquery"
 date = "2026-01-18"
+
+[[projects]]
+title = "Ratchakitcha Data on Colab"
+author = "spicydog"
+author_url = "http://spicydog.me"
+description = "A ready-to-use Google Colab notebook demonstrating how to analyze 40+ years of Royal Gazette data for free. Features smart metadata downloading, keyword search, and heatmap visualization."
+tags = ["Python", "Google Colab", "Data Visualization"]
+url = "https://colab.research.google.com/drive/1y67ABkrpyekxWnSFs14bFU0Z0km7Kxjv"
+date = "2026-01-19"
