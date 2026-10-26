@@ -17,3 +17,12 @@ description = "A ready-to-use Google Colab notebook demonstrating how to analyze
 tags = ["Python", "Google Colab", "Data Visualization"]
 url = "https://colab.research.google.com/drive/1y67ABkrpyekxWnSFs14bFU0Z0km7Kxjv"
 date = "2026-01-19"
+
+[[projects]]
+title = "Thai Legal Watch"
+author = "spicydog"
+author_url = "http://spicydog.me"
+description = "A public website for searching and following the Royal Gazette: 800,000+ documents since 2000, auto-classified by topic, action and agency, with volume/section/page citations and 485 RSS feeds. Built entirely from static files with no server, rebuilt nightly from the Open Law Data dataset."
+tags = ["Web App", "Search", "RSS", "Static Site"]
+url = "https://thai-legal-watch.openlawdatathailand.org"
+date = "2026-09-13"
