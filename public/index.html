@@ -13,7 +13,7 @@
     <meta property="og:title" content="Open Law Data Thailand - ศูนย์รวมฐานข้อมูลกฎหมายไทยเพื่อนักพัฒนาและประชาชน">
     <meta property="og:description"
         content="Open Law Data Thailand: ปลดล็อกกฎหมายไทยสู่ยุค AI ฐานข้อมูลกฎหมายที่คอมพิวเตอร์อ่านได้ สำหรับนักพัฒนาและประชาชน">
-    <meta property="og:image" content="./images/og/og_image.png">
+    <meta property="og:image" content="https://www.openlawdatathailand.org/images/og/og_image.png">
 
     <!-- Google Fonts: Prompt for Thai text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,14 +163,17 @@
                             class="text-tech-accent">Data</span></span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#about" class="text-gray-600 hover:text-thai-blue transition">เกี่ยวกับโครงการ</a>
                     <a href="#stats" class="text-gray-600 hover:text-thai-blue transition">ข้อมูลล่าสุด</a>
+                    <a href="#showcase" class="text-gray-600 hover:text-thai-blue transition">นวัตกรรมชุมชน</a>
+                    <a href="#about" class="text-gray-600 hover:text-thai-blue transition">เกี่ยวกับโครงการ</a>
                     <a href="#architecture" class="text-gray-600 hover:text-thai-blue transition">สถาปัตยกรรม</a>
                     <a href="#partners" class="text-gray-600 hover:text-thai-blue transition">พันธมิตร</a>
+                    <a href="#data-preview" class="text-gray-600 hover:text-thai-blue transition">โครงสร้างข้อมูล</a>
                 </div>
                 <!-- Mobile menu button (Simple implementation) -->
                 <div class="md:hidden flex items-center">
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                        aria-label="เปิดเมนูนำทาง"
                         class="text-gray-500 hover:text-gray-900 focus:outline-none">
                         <i class="ph ph-list text-2xl"></i>
                     </button>
@@ -180,12 +183,18 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#about"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">เกี่ยวกับโครงการ</a>
-                <a href="#stats"
+                <a href="#stats" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">ข้อมูลล่าสุด</a>
-                <a href="#partners"
+                <a href="#showcase" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">นวัตกรรมชุมชน</a>
+                <a href="#about" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">เกี่ยวกับโครงการ</a>
+                <a href="#architecture" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">สถาปัตยกรรม</a>
+                <a href="#partners" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
                     class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">พันธมิตร</a>
+                <a href="#data-preview" onclick="document.getElementById('mobile-menu').classList.add('hidden')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">โครงสร้างข้อมูล</a>
             </div>
         </div>
     </nav>
@@ -620,47 +629,6 @@
                     <p class="text-sm text-gray-500 mt-2 text-center leading-relaxed">สนับสนุนโครงสร้างพื้นฐานดิจิทัล
                     </p>
                 </a>
-
-                <!-- Private Sector Row -->
-                <div class="lg:col-span-3 flex flex-wrap justify-center gap-6 mt-8 hidden">
-                    <!-- UpPass -->
-                    <div
-                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
-                        <div
-                            class="bg-purple-50 p-3 rounded-xl text-purple-600 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-file-text text-2xl"></i>
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-gray-900">UpPass</h5>
-                            <p class="text-xs text-gray-500">สนับสนุนเทคโนโลยี Data Pipeline</p>
-                        </div>
-                    </div>
-
-                    <!-- IApp -->
-                    <div
-                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
-                        <div class="bg-blue-50 p-3 rounded-xl text-blue-900 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-brain text-2xl"></i>
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-gray-900">IApp Technology</h5>
-                            <p class="text-xs text-gray-500">สนับสนุนเทคโนโลยี OCR</p>
-                        </div>
-                    </div>
-
-                    <!-- StockRadars -->
-                    <div
-                        class="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full md:w-auto group">
-                        <div
-                            class="bg-green-50 p-3 rounded-xl text-green-600 group-hover:scale-110 transition-transform">
-                            <i class="ph-fill ph-chart-line-up text-2xl"></i>
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-gray-900">StockRadars</h5>
-                            <p class="text-xs text-gray-500">สนับสนุน Data Visualization</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -674,7 +642,8 @@
                     ⚡ Powering the System
                 </span>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">เทคโนโลยีเบื้องหลัง</h2>
-                ความสำเร็จในการพัฒนาระบบเกิดจากการสนับสนุนเทคโนโลยีชั้นนำจากพันธมิตรผู้เชี่ยวชาญ
+                <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                    ความสำเร็จในการพัฒนาระบบเกิดจากการสนับสนุนเทคโนโลยีชั้นนำจากพันธมิตรผู้เชี่ยวชาญ
                 </p>
             </div>
 
@@ -746,17 +715,38 @@
             </div>
 
             <div class="grid lg:grid-cols-2 gap-8 items-start">
-                <!-- JSON Preview -->
+                <!-- JSON / CLI Preview with Tabs -->
                 <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="bg-gray-900 px-6 py-4 flex items-center justify-between">
+                    <div class="bg-gray-900 px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2">
                         <div class="flex items-center gap-2">
                             <div class="w-3 h-3 rounded-full bg-red-500"></div>
                             <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                             <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <div class="ml-2 flex items-center bg-gray-800 rounded-lg p-0.5 text-xs font-mono">
+                                <button type="button" data-preview-tab="meta"
+                                    class="preview-tab-btn px-2.5 py-1 rounded-md bg-blue-600 text-white font-medium transition-colors">
+                                    meta/
+                                </button>
+                                <button type="button" data-preview-tab="ocr"
+                                    class="preview-tab-btn px-2.5 py-1 rounded-md text-gray-400 hover:text-white transition-colors">
+                                    ocr/
+                                </button>
+                                <button type="button" data-preview-tab="cli"
+                                    class="preview-tab-btn px-2.5 py-1 rounded-md text-gray-400 hover:text-white transition-colors">
+                                    hf cli
+                                </button>
+                            </div>
                         </div>
-                        <span class="text-gray-400 text-sm font-mono">example.json</span>
+                        <div class="flex items-center gap-3">
+                            <span id="preview-filename" class="text-gray-400 text-xs font-mono hidden sm:inline">example.json</span>
+                            <button type="button" id="copy-preview-btn"
+                                class="inline-flex items-center gap-1 text-xs text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 px-2.5 py-1 rounded-md border border-gray-700 transition-colors">
+                                <i class="ph ph-copy"></i>
+                                <span id="copy-preview-text">คัดลอก</span>
+                            </button>
+                        </div>
                     </div>
-                    <pre class="p-6 overflow-x-auto text-sm"><code class="language-json text-gray-800">{
+                    <pre class="p-6 overflow-x-auto text-sm min-h-[230px]"><code id="preview-code-content" class="language-json text-gray-800">{
   "no": "92",
   "doctitle": "สารบัญ วันอาทิตย์ เดือนยี่...",
   "bookNo": "1",
@@ -768,8 +758,8 @@
 }</code></pre>
                     <div
                         class="bg-gray-50 px-6 py-3 border-t border-gray-100 text-xs text-gray-500 flex justify-between items-center">
-                        <span>* ตัวอย่างข้อมูล Metadata</span>
-                        <a href="https://huggingface.co/open-law-data-thailand" target="_blank"
+                        <span id="preview-caption">* ตัวอย่างข้อมูล Metadata (meta/)</span>
+                        <a href="https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha" target="_blank" rel="noopener noreferrer"
                             class="text-thai-blue hover:underline">ดูข้อมูลทั้งหมด &rarr;</a>
                     </div>
                 </div>
@@ -885,13 +875,13 @@
                     <div class="text-right">
                         <p class="text-xs text-gray-500 mb-1">License</p>
                         <p class="text-sm font-medium text-gray-300 flex items-center gap-1">
-                            <i class="ph-bold ph-creative-commons"></i> CC BY-SA 4.0 (Attribution-ShareAlike)
+                            <i class="ph-bold ph-creative-commons"></i> CC BY 4.0 (Data) &middot; MIT (Code)
                         </p>
                     </div>
                 </div>
             </div>
             <div class="mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
-                &copy; 2568 Open Law Data Project. All rights reserved.
+                &copy; 2568&ndash;2569 Open Law Data Project. All rights reserved.
             </div>
         </div>
     </footer>
@@ -911,6 +901,81 @@
     </div>
 
     <script>
+        function escapeHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function safeUrl(url) {
+            try {
+                const parsed = new URL(String(url ?? ''), window.location.origin);
+                if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+                    return parsed.href;
+                }
+            } catch (_) { }
+            return '#';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const previewSnippets = {
+                meta: {
+                    filename: 'meta/example.json',
+                    caption: '* ตัวอย่างข้อมูล Metadata (meta/)',
+                    code: `{\n  "no": "92",\n  "doctitle": "สารบัญ วันอาทิตย์ เดือนยี่...",\n  "bookNo": "1",\n  "section": "55",\n  "category": "General",\n  "publishDate": "1885-01-31",\n  "pageNo": "479",\n  "pdfFile": "1885-000092.pdf"\n}`
+                },
+                ocr: {
+                    filename: 'ocr/example.jsonl',
+                    caption: '* ตัวอย่างข้อมูลข้อความ OCR ภาษาไทย (ocr/)',
+                    code: `{\n  "pdf_file": "2026-000123.pdf",\n  "page": 1,\n  "text": "ราชกิจจานุเบกษา เล่ม ๑๔๓ ตอนพิเศษ ...\\nประกาศสำนักนายกรัฐมนตรี\\nเรื่อง ...",\n  "engine": "iapp-thai-ocr"\n}`
+                },
+                cli: {
+                    filename: 'terminal (bash)',
+                    caption: '* ตัวอย่างคำสั่งดาวน์โหลดเฉพาะส่วนด้วย Hugging Face CLI',
+                    code: `# 1. ดึงเฉพาะ Metadata ทั้งหมด (สำหรับ Data Analytics)\nhf download open-law-data-thailand/soc-ratchakitcha \\\n  --repo-type dataset --include "meta/*/*" --local-dir "downloads"\n\n# 2. ดึงเฉพาะข้อความ OCR ยุค 2020s (สำหรับ AI / NLP / RAG)\nhf download open-law-data-thailand/soc-ratchakitcha \\\n  --repo-type dataset --include "ocr/*/202?/*" --local-dir "downloads"`
+                }
+            };
+
+            const tabButtons = document.querySelectorAll('.preview-tab-btn');
+            const codeEl = document.getElementById('preview-code-content');
+            const filenameEl = document.getElementById('preview-filename');
+            const captionEl = document.getElementById('preview-caption');
+            const copyBtn = document.getElementById('copy-preview-btn');
+            const copyTextEl = document.getElementById('copy-preview-text');
+
+            tabButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-preview-tab');
+                    const item = previewSnippets[key];
+                    if (!item) return;
+
+                    tabButtons.forEach((b) => {
+                        b.classList.remove('bg-blue-600', 'text-white', 'font-medium');
+                        b.classList.add('text-gray-400');
+                    });
+                    btn.classList.add('bg-blue-600', 'text-white', 'font-medium');
+                    btn.classList.remove('text-gray-400');
+
+                    codeEl.textContent = item.code;
+                    filenameEl.textContent = item.filename;
+                    captionEl.textContent = item.caption;
+                });
+            });
+
+            if (copyBtn && codeEl) {
+                copyBtn.addEventListener('click', async () => {
+                    try {
+                        await navigator.clipboard.writeText(codeEl.textContent);
+                        copyTextEl.textContent = 'คัดลอกแล้ว!';
+                        setTimeout(() => { copyTextEl.textContent = 'คัดลอก'; }, 1800);
+                    } catch (_) { }
+                });
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', async () => {
             const trigger = document.getElementById('latest-update-trigger');
             const popup = document.getElementById('update-popup');
@@ -941,6 +1006,12 @@
                 }
             });
 
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && popup.classList.contains('popup-open')) {
+                    togglePopup(false);
+                }
+            });
+
             popup.addEventListener('click', (e) => {
                 if (e.target === popup || e.target.closest('#popup-close-btn')) {
                     e.stopPropagation();
@@ -948,29 +1019,57 @@
                 }
             });
 
+            const colorStyles = {
+                blue: {
+                    blob: 'bg-blue-50',
+                    iconBox: 'bg-blue-50 text-blue-600 border-blue-100',
+                    recordBoxHover: 'group-hover:border-blue-100/50 group-hover:bg-blue-50/30',
+                    dateBadge: 'text-blue-600',
+                    button: 'bg-blue-600 hover:bg-blue-700'
+                },
+                indigo: {
+                    blob: 'bg-indigo-50',
+                    iconBox: 'bg-indigo-50 text-indigo-600 border-indigo-100',
+                    recordBoxHover: 'group-hover:border-indigo-100/50 group-hover:bg-indigo-50/30',
+                    dateBadge: 'text-indigo-600',
+                    button: 'bg-indigo-600 hover:bg-indigo-700'
+                }
+            };
+
             // Define sources
-            const sources = [{
-                name: 'ราชกิจจานุเบกษา',
-                key: 'soc-ratchakitcha',
-                url: 'https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/latest_update.json',
-                icon: 'ph-scroll',
-                color: 'blue'
-            },
+            const sources = [
+                {
+                    name: 'ราชกิจจานุเบกษา (สลค.)',
+                    key: 'soc-ratchakitcha',
+                    url: 'https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/latest_update.json',
+                    icon: 'ph-scroll',
+                    color: 'blue'
+                },
+                {
+                    name: 'ประมวลกฎหมาย (สำนักงานคณะกรรมการกฤษฎีกา)',
+                    key: 'ocs-law-codes',
+                    coming_soon: true,
+                    icon: 'ph-scales',
+                    color: 'indigo'
+                }
             ];
 
             try {
-                // Fetch all sources in parallel
-                const results = await Promise.allSettled(sources.map(s => fetch(s.url).then(r => {
-                    if (!r.ok) throw new Error(r.statusText);
-                    return r.json();
-                })));
+                // Fetch all sources in parallel (skip coming_soon sources)
+                const results = await Promise.allSettled(sources.map(s => {
+                    if (s.coming_soon) return Promise.resolve({ coming_soon: true });
+                    return fetch(s.url).then(r => {
+                        if (!r.ok) throw new Error(r.statusText);
+                        return r.json();
+                    });
+                }));
 
                 let latestPipelineDate = new Date(0);
                 let validDataFound = false;
 
                 // 1. Determine System Status (based on latest pipeline run)
                 results.forEach((result) => {
-                    if (result.status === 'fulfilled') {
+                    if (result.status === 'fulfilled' && !result.value.coming_soon) {
                         validDataFound = true;
                         const data = result.value;
                         if (data.last_updated_pipeline) {
@@ -1007,7 +1106,7 @@
 
                 // 2. Build Popup Content (List of Sources)
                 let popupContentHtml = `
-                    <div class="w-[90%] max-w-lg mx-auto bg-white/95 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 relative flex flex-col max-h-[80vh]">
+                    <div role="dialog" aria-modal="true" aria-label="สถานะข้อมูลล่าสุด" class="w-[90%] max-w-lg mx-auto bg-white/95 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden ring-1 ring-black/5 relative flex flex-col max-h-[80vh]">
                         <!-- Header -->
                         <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-6 text-white relative overflow-hidden shrink-0">
                             <!-- Decorative circles -->
@@ -1019,7 +1118,7 @@
                                     <h3 class="font-bold text-xl leading-tight text-white/95 mb-1">สถานะข้อมูลล่าสุด</h3>
                                     <p class="text-xs text-blue-100/80 font-medium">แยกตามแหล่งที่มา (Data Sources)</p>
                                 </div>
-                                <button id="popup-close-btn" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/10">
+                                <button id="popup-close-btn" aria-label="ปิดหน้าต่างสถานะ" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm border border-white/10">
                                     <i class="ph-bold ph-x text-white"></i>
                                 </button>
                             </div>
@@ -1031,6 +1130,28 @@
 
                 results.forEach((result, index) => {
                     const source = sources[index];
+                    const style = colorStyles[source.color] || colorStyles.blue;
+
+                    if (source.coming_soon) {
+                        popupContentHtml += `
+                            <div class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm relative overflow-hidden">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl ${style.iconBox} flex items-center justify-center shadow-sm border">
+                                            <i class="ph-fill ${source.icon} text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-gray-900 text-sm">${escapeHtml(source.name)}</h4>
+                                            <span class="text-xs text-indigo-600 flex items-center gap-1 font-medium bg-indigo-50 px-2 py-0.5 rounded-full mt-1 w-fit border border-indigo-100">
+                                                <i class="ph-bold ph-hourglass-medium"></i> กำลังเตรียมเชื่อมต่อชุดข้อมูล
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
 
                     if (result.status === 'fulfilled') {
                         const data = result.value;
@@ -1047,41 +1168,43 @@
                         if (source.key === 'soc-ratchakitcha' && record.pdf_file) {
                             const year = pubDate.getFullYear();
                             const month = String(pubDate.getMonth() + 1).padStart(2, '0');
-                            pdfUrl = `https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/pdf/${year}/${year}-${month}/${record.pdf_file}`;
+                            pdfUrl = `https://huggingface.co/datasets/open-law-data-thailand/soc-ratchakitcha/resolve/main/pdf/${year}/${year}-${month}/${encodeURIComponent(record.pdf_file)}`;
                         }
+
+                        const safeTitle = escapeHtml(record.doctitle);
 
                         popupContentHtml += `
                             <div class="group bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition-all duration-300 relative overflow-hidden">
                                 <!-- Card Decoration -->
-                                <div class="absolute top-0 right-0 w-16 h-16 bg-${source.color}-50 rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:scale-110 transition-transform"></div>
+                                <div class="absolute top-0 right-0 w-16 h-16 ${style.blob} rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:scale-110 transition-transform"></div>
 
                                 <div class="relative z-10">
                                     <div class="flex items-center gap-3 mb-4">
-                                        <div class="w-10 h-10 rounded-xl bg-${source.color}-50 text-${source.color}-600 flex items-center justify-center shadow-sm border border-${source.color}-100">
+                                        <div class="w-10 h-10 rounded-xl ${style.iconBox} flex items-center justify-center shadow-sm border">
                                             <i class="ph-fill ${source.icon} text-xl"></i>
                                         </div>
                                         <div>
                                             <div class="flex items-center gap-2">
-                                                <a href="https://huggingface.co/datasets/open-law-data-thailand/${source.key}" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors" title="ดูชุดข้อมูลบน Hugging Face">
-                                                    <h4 class="font-bold text-gray-900 text-sm">${source.name} <i class="ph-bold ph-arrow-square-out text-sm"></i></h4>
+                                                <a href="https://huggingface.co/datasets/open-law-data-thailand/${encodeURIComponent(source.key)}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-blue-500 transition-colors" title="ดูชุดข้อมูลบน Hugging Face">
+                                                    <h4 class="font-bold text-gray-900 text-sm">${escapeHtml(source.name)} <i class="ph-bold ph-arrow-square-out text-sm"></i></h4>
                                                 </a>
                                             </div>
                                             <div class="flex items-center gap-2">
-                                                <span class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded border border-gray-200 font-mono">${source.key}</span>
+                                                <span class="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded border border-gray-200 font-mono">${escapeHtml(source.key)}</span>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <div class="bg-gray-50/80 p-3 rounded-lg border border-gray-100/50 mb-3 group-hover:border-${source.color}-100/50 group-hover:bg-${source.color}-50/30 transition-colors">
+                                    <div class="bg-gray-50/80 p-3 rounded-lg border border-gray-100/50 mb-3 ${style.recordBoxHover} transition-colors">
                                         <div class="flex items-center justify-between mb-1">
                                             <p class="text-[10px] text-gray-400 font-bold uppercase">เอกสารล่าสุด</p>
-                                            <span class="text-[10px] text-${source.color}-600 font-medium bg-white px-1.5 py-0.5 rounded shadow-sm">${pubDateStr}</span>
+                                            <span class="text-[10px] ${style.dateBadge} font-medium bg-white px-1.5 py-0.5 rounded shadow-sm">${escapeHtml(pubDateStr)}</span>
                                         </div>
-                                        <p class="text-sm text-gray-800 font-medium line-clamp-2 leading-relaxed" title="${record.doctitle}">${record.doctitle}</p>
+                                        <p class="text-sm text-gray-800 font-medium line-clamp-2 leading-relaxed" title="${safeTitle}">${safeTitle}</p>
                                     </div>
 
                                     ${pdfUrl ? `
-                                    <a href="${pdfUrl}" target="_blank" class="flex items-center justify-center w-full py-2 text-xs font-bold text-white bg-${source.color}-600 hover:bg-${source.color}-700 rounded-lg shadow-sm hover:shadow hover:-translate-y-0.5 transition-all gap-2">
+                                    <a href="${pdfUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full py-2 text-xs font-bold text-white ${style.button} rounded-lg shadow-sm hover:shadow hover:-translate-y-0.5 transition-all gap-2">
                                         <i class="ph-bold ph-file-pdf"></i> ดูเอกสารฉบับเต็ม
                                     </a>
                                     ` : ''}
@@ -1097,7 +1220,7 @@
                                         <i class="ph-fill ${source.icon} text-xl"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-gray-900 text-sm">${source.name}</h4>
+                                        <h4 class="font-bold text-gray-900 text-sm">${escapeHtml(source.name)}</h4>
                                         <span class="text-xs text-red-400 flex items-center gap-1 font-medium bg-red-50 px-2 py-0.5 rounded-full mt-1 w-fit">
                                             <i class="ph-bold ph-warning-circle"></i> ไม่พบข้อมูลล่าสุด
                                         </span>
@@ -1171,42 +1294,51 @@
             // Sort: Featured first, then by date (newest first)
             projects.sort((a, b) => (Number(b.featured) - Number(a.featured)) || new Date(b.date) - new Date(a.date));
 
-            const html = projects.map(project => `
+            const html = projects.map(project => {
+                const projectUrl = safeUrl(project.url);
+                const authorUrl = safeUrl(project.author_url);
+                const title = escapeHtml(project.title);
+                const description = escapeHtml(project.description);
+                const author = escapeHtml(project.author);
+                const tags = Array.isArray(project.tags) ? project.tags : [];
+
+                return `
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group">
               <div class="p-6 flex-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                   ${project.featured ? '<span class="text-amber-400 text-lg drop-shadow-sm" title="Featured Project"><i class="ph-fill ph-star"></i></span>' : ''}
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-thai-blue transition-colors leading-tight">
-                  <a href="${project.url}" target="_blank">
-                    ${project.title}
+                  <a href="${projectUrl}" target="_blank" rel="noopener noreferrer">
+                    ${title}
                   </a>
                 </h3>
-                <p class="text-gray-500 text-sm mb-6 line-clamp-3 leading-relaxed">
-                  ${project.description}
+                <p class="text-gray-500 text-sm mb-6 line-clamp-4 leading-relaxed" title="${description}">
+                  ${description}
                 </p>
                 
                 <div class="flex flex-wrap gap-2 mt-auto">
-                  ${project.tags.map(tag =>
-                `<span class="text-xs text-gray-500 bg-gray-50 px-2.5 py-1 rounded-md border border-gray-100">#${tag}</span>`
-            ).join('')}
+                  ${tags.map(tag =>
+                    `<span class="text-xs text-gray-500 bg-gray-50 px-2.5 py-1 rounded-md border border-gray-100">#${escapeHtml(tag)}</span>`
+                ).join('')}
                 </div>
               </div>
               
               <div class="bg-gray-50/50 px-6 py-4 border-t border-gray-100 flex justify-between items-center mt-auto">
                 <div class="flex items-center gap-2 text-sm text-gray-500 truncate mr-2">
                   <i class="ph-fill ph-user-circle text-lg text-gray-400"></i>
-                  <a href="${project.author_url}" target="_blank" class="font-medium text-gray-700 hover:text-thai-blue hover:underline transition-colors">${project.author}</a>
+                  <a href="${authorUrl}" target="_blank" rel="noopener noreferrer" class="font-medium text-gray-700 hover:text-thai-blue hover:underline transition-colors">${author}</a>
                 </div>
-                <a href="${project.url}" target="_blank" class="text-thai-blue hover:text-blue-700 text-sm font-semibold flex items-center gap-1 whitespace-nowrap group/link">
+                <a href="${projectUrl}" target="_blank" rel="noopener noreferrer" class="text-thai-blue hover:text-blue-700 text-sm font-semibold flex items-center gap-1 whitespace-nowrap group/link">
                   View Project <i class="ph-bold ph-arrow-right group-hover/link:translate-x-1 transition-transform"></i>
                 </a>
               </div>
             </div>
-          `).join('');
+          `;
+            }).join('');
 
             container.innerHTML = html + `
-            <a href="https://github.com/DGA-Thailand/open-law-data/blob/main/public/data/showcases.toml" target="_blank"
+            <a href="https://github.com/DGA-Thailand/open-law-data/blob/main/public/data/showcases.toml" target="_blank" rel="noopener noreferrer"
                 class="bg-gray-50 rounded-2xl border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50/50 transition-all duration-300 flex flex-col items-center justify-center p-8 text-center group h-full cursor-pointer min-h-[300px]">
                 <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm group-hover:scale-110 transition-transform text-gray-400 group-hover:text-blue-500">
                      <i class="ph-bold ph-plus text-3xl"></i>
